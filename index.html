@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronicles</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="game">
+        <div class="board">
+
+            <!-- ============================================ -->
+            <!-- LEFT SIDEBAR — Draw Pile & Stats             -->
+            <!-- ============================================ -->
+            <aside class="sidebar">
+                <!-- Narrator Portrait -->
+                <div class="narrator-portrait" id="narrator-portrait">
+                    <div class="portrait-frame">
+                        <div class="portrait-placeholder">Portrait</div>
+                    </div>
+                    <div class="narrator-name" id="narrator-name">The Narrator</div>
+                </div>
+
+                <!-- Draw Pile (sub-container) -->
+                <div class="sidebar-section draw-pile" id="draw-pile">
+                    <div class="draw-card" id="draw-card">
+                        <div class="card-back">
+                            <div class="card-sigil" id="draw-sigil"></div>
+                        </div>
+                    </div>
+                    <div class="draw-count" id="draw-count">9 remaining</div>
+                </div>
+
+                <!-- Draw Buttons (sub-container) -->
+                <div class="sidebar-section draw-buttons">
+                    <button class="btn-draw" id="btn-take-card">Take Card</button>
+                    <button class="btn-draw" id="btn-redraw">Redraw</button>
+                </div>
+
+                <!-- Spacer pushes stats to bottom -->
+                <div class="sidebar-spacer"></div>
+
+                <!-- Player Stats at bottom (sub-container) -->
+                <div class="sidebar-section player-stats">
+                    <div class="stat-block">
+                        <span class="stat-label">Health</span>
+                        <div class="stat-bar">
+                            <div class="stat-bar-fill health-fill" id="health-bar"></div>
+                        </div>
+                        <span class="stat-value" id="health-value">50/50</span>
+                    </div>
+                    <div class="stat-block">
+                        <span class="stat-label">Attack</span>
+                        <div class="stat-bar">
+                            <div class="stat-bar-fill attack-fill" id="attack-bar"></div>
+                        </div>
+                        <span class="stat-value" id="attack-value">15</span>
+                    </div>
+                </div>
+
+                <!-- Seed Display -->
+                <div class="seed-display">
+                    <span class="seed-label">Seed:</span>
+                    <span class="seed-value" id="seed-value">—</span>
+                </div>
+            </aside>
+
+            <!-- ============================================ -->
+            <!-- CENTER — Narrative Panel (double-nested)     -->
+            <!-- ============================================ -->
+            <main class="narrative-outer" id="narrative-panel">
+                <div class="narrative-viewport">
+                    <div class="narrative-bg" id="narrative-bg"></div>
+                    <div class="narrative-text" id="narrative-text">
+                        <p>A figure sits across from you.</p>
+                        <p>Cards in one hand. A single die in the other.</p>
+                        <p>They begin to speak.</p>
+                    </div>
+                </div>
+            </main>
+
+            <!-- ============================================ -->
+            <!-- BOTTOM TRAY — Hand, Viewport, Buttons, Die   -->
+            <!-- ============================================ -->
+            <div class="bottom-tray">
+                <!-- Player Hand (3 cards) -->
+                <div class="hand" id="hand">
+                    <div class="hand-card" data-slot="0">
+                        <div class="card-face card-back">
+                            <div class="card-sigil"></div>
+                        </div>
+                    </div>
+                    <div class="hand-card" data-slot="1">
+                        <div class="card-face card-back">
+                            <div class="card-sigil"></div>
+                        </div>
+                    </div>
+                    <div class="hand-card" data-slot="2">
+                        <div class="card-face card-back">
+                            <div class="card-sigil"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hazard Viewport (not a card — shows encounter image) -->
+                <div class="hazard-viewport" id="hazard-slot">
+                    <div class="hazard-viewport-label" id="hazard-label">You face:</div>
+                    <div class="hazard-viewport-frame" id="hazard-card">
+                        <div class="hazard-viewport-image" id="hazard-image"></div>
+                        <div class="hazard-viewport-info" id="hazard-info">
+                            <div class="hazard-placeholder">&mdash;</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Context Buttons -->
+                <div class="context-buttons" id="context-buttons">
+                    <button class="btn-context" id="btn-context-1">Continue</button>
+                    <button class="btn-context" id="btn-context-2">Look Around</button>
+                    <button class="btn-context" id="btn-context-3">Rest</button>
+                </div>
+
+                <!-- Die (with container) -->
+                <div class="die-container" id="die-container">
+                    <div class="die" id="die">
+                        <span class="die-face" id="die-face">?</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

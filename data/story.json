@@ -1,0 +1,3296 @@
+{
+  "_meta": {
+    "version": "0.1",
+    "description": "Narrative nodes for Chronicles — Zone 1: The Old Wood"
+  },
+
+  "nodes": [
+
+    { "_comment": "=== GAME START — NARRATOR INTRODUCTION ===" },
+
+    {
+      "id": "intro_01",
+      "type": "story",
+      "zone": 0,
+      "lines": [
+        "A figure sits across from you.",
+        "Cards in one hand. A single die in the other.",
+        "They begin to speak."
+      ],
+      "background": "narrator_table",
+      "next": "intro_02"
+    },
+    {
+      "id": "intro_02",
+      "type": "story",
+      "lines": [
+        "\"I will tell you a story.\"",
+        "\"The cards are yours. The die is fate.\"",
+        "\"What happens between them — that is up to you.\""
+      ],
+      "background": "narrator_table",
+      "next": "intro_03"
+    },
+    {
+      "id": "intro_03",
+      "type": "story",
+      "lines": [
+        "The narrator deals three cards face-down.",
+        "The draw pile rests between you.",
+        "A road stretches out ahead."
+      ],
+      "background": "narrator_table",
+      "next": "z1_road_01"
+    },
+
+    { "_comment": "=== ZONE 1: THE OLD WOOD — OPENING ===" },
+
+    {
+      "id": "z1_road_01",
+      "type": "story",
+      "lines": [
+        "Tall grass sways in the wind.",
+        "Barn swallows dip and loop against the sky.",
+        "A dusty road cuts east through open country."
+      ],
+      "background": "open_field_01",
+      "next": "z1_road_02"
+    },
+    {
+      "id": "z1_road_02",
+      "type": "story",
+      "lines": [
+        "The road narrows ahead.",
+        "Trees lean in from either side.",
+        "The forest swallows the path whole."
+      ],
+      "background": "forest_entrance_01",
+      "next": "z1_forest_01"
+    },
+    {
+      "id": "z1_forest_01",
+      "type": "story",
+      "lines": [
+        "Canopy closes overhead like a cathedral ceiling.",
+        "Sunlight spills through the leaves,",
+        "dappling the road in gold."
+      ],
+      "background": "forest_interior_01",
+      "next": "z1_forest_choice_01"
+    },
+    {
+      "id": "z1_forest_choice_01",
+      "type": "choice",
+      "lines": [
+        "The path forks.",
+        "One trail follows the brook. The other climbs the ridge."
+      ],
+      "background": "forest_fork_01",
+      "buttons": [
+        { "label": "Follow the Brook", "next": "z1_brook_01" },
+        { "label": "Climb the Ridge", "next": "z1_ridge_01" },
+        { "label": "Rest Here", "next": "z1_rest_01" }
+      ]
+    },
+
+    { "_comment": "=== BROOK PATH ===" },
+
+    {
+      "id": "z1_brook_01",
+      "type": "story",
+      "lines": [
+        "Water runs cold over smooth stones.",
+        "The air smells of moss and wet bark.",
+        "Something moves in the ferns ahead."
+      ],
+      "background": "brook_01",
+      "next": "z1_brook_hazard_01"
+    },
+    {
+      "id": "z1_brook_hazard_01",
+      "type": "hazard",
+      "lines": [
+        "A shape rises from the undergrowth.",
+        "Bristled fur. Cloven hooves. Small red eyes.",
+        "It lowers its head and charges."
+      ],
+      "background": "boar_01",
+      "hazard": {
+        "name": "Wild Boar",
+        "image": "boar_01",
+        "difficulty": 3,
+        "damage": 6,
+        "relevantCards": ["melee", "hazard_assist"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z1_brook_flee_01" }
+      ],
+      "outcomes": {
+        "success": "z1_brook_success_01",
+        "failure": "z1_brook_fail_01"
+      }
+    },
+    {
+      "id": "z1_brook_success_01",
+      "type": "story",
+      "lines": [
+        "The creature skids past you,",
+        "crashing through the ferns.",
+        "It does not return."
+      ],
+      "background": "brook_01",
+      "next": "z1_brook_discovery_01"
+    },
+    {
+      "id": "z1_brook_discovery_01",
+      "type": "discovery",
+      "lines": [
+        "Something catches the light in the mud.",
+        "Half-buried shapes, edges worn smooth by water.",
+        "You can only carry one."
+      ],
+      "background": "brook_01",
+      "offers": ["melee_cleave", "hazard_sharp_instinct", "magic_mend"],
+      "count": 1,
+      "next": "z1_brook_02"
+    },
+    {
+      "id": "z1_brook_fail_01",
+      "type": "story",
+      "lines": [
+        "The boar catches your leg.",
+        "You stumble into the cold water.",
+        "It hurts more than you expected."
+      ],
+      "background": "brook_01",
+      "damage": 6,
+      "next": "z1_brook_02"
+    },
+    {
+      "id": "z1_brook_flee_01",
+      "type": "story",
+      "lines": [
+        "You scramble back the way you came.",
+        "Branches whip your face.",
+        "The boar's snorting fades behind you."
+      ],
+      "background": "forest_interior_01",
+      "next": "z1_brook_02"
+    },
+    {
+      "id": "z1_brook_02",
+      "type": "story",
+      "lines": [
+        "The brook widens into a clearing.",
+        "Dragonflies hover over still water.",
+        "The path continues east."
+      ],
+      "background": "brook_clearing_01",
+      "next": "z1_random_pool_01"
+    },
+
+    { "_comment": "=== RIDGE PATH ===" },
+
+    {
+      "id": "z1_ridge_01",
+      "type": "story",
+      "lines": [
+        "The climb is steep. Roots like rungs.",
+        "At the top, the forest spreads below,",
+        "endless green fading into blue mountains."
+      ],
+      "background": "ridge_view_01",
+      "next": "z1_ridge_02"
+    },
+    {
+      "id": "z1_ridge_02",
+      "type": "story",
+      "lines": [
+        "Wind bends the grass flat against the ridge.",
+        "A crow watches from a dead branch.",
+        "It does not fly."
+      ],
+      "background": "ridge_view_01",
+      "next": "z1_ridge_hazard_01"
+    },
+    {
+      "id": "z1_ridge_hazard_01",
+      "type": "hazard",
+      "lines": [
+        "The ground gives way beneath your foot.",
+        "Loose stone. A long slide down.",
+        "You need to catch yourself."
+      ],
+      "background": "ridge_slide_01",
+      "hazard": {
+        "name": "Crumbling Ridge",
+        "image": "ridge_slide_01",
+        "difficulty": 4,
+        "damage": 5,
+        "relevantCards": ["hazard_assist", "magic"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z1_ridge_flee_01" }
+      ],
+      "outcomes": {
+        "success": "z1_ridge_success_01",
+        "failure": "z1_ridge_fail_01"
+      }
+    },
+    {
+      "id": "z1_ridge_success_01",
+      "type": "story",
+      "lines": [
+        "Your fingers find a root.",
+        "You pull yourself up, dirt under your nails.",
+        "The ridge holds."
+      ],
+      "background": "ridge_view_01",
+      "next": "z1_ridge_discovery_01"
+    },
+    {
+      "id": "z1_ridge_discovery_01",
+      "type": "discovery",
+      "lines": [
+        "Wedged in the rock face, something glints.",
+        "Left behind by whoever climbed before you.",
+        "You reach in."
+      ],
+      "background": "ridge_view_01",
+      "offers": ["melee_parry", "hazard_second_look", "magic_ward"],
+      "count": 1,
+      "next": "z1_ridge_03"
+    },
+    {
+      "id": "z1_ridge_fail_01",
+      "type": "story",
+      "lines": [
+        "You slide hard against the stone.",
+        "Gravel tears at your palms.",
+        "You land badly. The ridge doesn't care."
+      ],
+      "background": "ridge_slide_01",
+      "damage": 5,
+      "next": "z1_ridge_03"
+    },
+    {
+      "id": "z1_ridge_flee_01",
+      "type": "story",
+      "lines": [
+        "You step back from the edge.",
+        "The safe path is longer.",
+        "But it holds."
+      ],
+      "background": "forest_interior_01",
+      "next": "z1_ridge_03"
+    },
+    {
+      "id": "z1_ridge_03",
+      "type": "story",
+      "lines": [
+        "The ridge descends into thick forest.",
+        "Birdsong returns.",
+        "The air smells of pine and rain."
+      ],
+      "background": "forest_interior_01",
+      "next": "z1_random_pool_01"
+    },
+
+    { "_comment": "=== REST STOP ===" },
+
+    {
+      "id": "z1_rest_01",
+      "type": "story",
+      "lines": [
+        "You sit on a fallen log.",
+        "The forest breathes around you.",
+        "For a moment, nothing hunts you."
+      ],
+      "background": "forest_rest_01",
+      "heal": 5,
+      "next": "z1_random_pool_01"
+    },
+
+    { "_comment": "=== ZONE 1 RANDOM ENCOUNTER POOL ===" },
+
+    {
+      "id": "z1_random_pool_01",
+      "type": "random_pool",
+      "description": "Mid-zone random encounters for The Old Wood",
+      "pool": [
+        { "nodeId": "z1_wolves_01", "weight": 3 },
+        { "nodeId": "z1_shrine_01", "weight": 2 },
+        { "nodeId": "z1_trap_01", "weight": 3 },
+        { "nodeId": "z1_stranger_01", "weight": 1 },
+        { "nodeId": "z1_clearing_rest_01", "weight": 1 }
+      ]
+    },
+
+    { "_comment": "=== RANDOM ENCOUNTERS ===" },
+
+    {
+      "id": "z1_wolves_01",
+      "type": "story",
+      "lines": [
+        "Eyes in the undergrowth.",
+        "Low growls. Moving shapes.",
+        "Wolves. They've found you."
+      ],
+      "background": "wolves_01",
+      "next": "z1_wolves_hazard_01"
+    },
+    {
+      "id": "z1_wolves_hazard_01",
+      "type": "hazard",
+      "lines": [
+        "The pack circles.",
+        "The largest steps forward, teeth bared.",
+        "They are not afraid of you."
+      ],
+      "background": "wolves_01",
+      "hazard": {
+        "name": "Wolf Pack",
+        "image": "wolves_01",
+        "difficulty": 4,
+        "damage": 8,
+        "relevantCards": ["melee", "hazard_assist"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z1_wolves_flee_01" }
+      ],
+      "outcomes": {
+        "success": "z1_wolves_success_01",
+        "failure": "z1_wolves_fail_01"
+      }
+    },
+    {
+      "id": "z1_wolves_success_01",
+      "type": "story",
+      "lines": [
+        "You stand your ground.",
+        "The alpha hesitates. Then turns.",
+        "The pack melts back into the trees."
+      ],
+      "background": "forest_interior_01",
+      "next": "z1_wolves_discovery_01"
+    },
+    {
+      "id": "z1_wolves_discovery_01",
+      "type": "discovery",
+      "lines": [
+        "Where the wolves denned,",
+        "scattered among old bones,",
+        "something useful remains."
+      ],
+      "background": "forest_interior_01",
+      "offers": ["melee_reckless", "hazard_iron_nerve", "magic_spark"],
+      "count": 1,
+      "next": "z1_random_pool_02"
+    },
+    {
+      "id": "z1_wolves_fail_01",
+      "type": "story",
+      "lines": [
+        "Teeth find your arm.",
+        "You pull free, bleeding.",
+        "They got what they wanted. A warning."
+      ],
+      "background": "wolves_01",
+      "damage": 8,
+      "next": "z1_random_pool_02"
+    },
+    {
+      "id": "z1_wolves_flee_01",
+      "type": "story",
+      "lines": [
+        "You back away slowly.",
+        "The wolves watch but do not follow.",
+        "Your hands are shaking."
+      ],
+      "background": "forest_interior_01",
+      "next": "z1_random_pool_02"
+    },
+
+    {
+      "id": "z1_shrine_01",
+      "type": "story",
+      "lines": [
+        "Stone steps lead to a mossy altar.",
+        "Wildflowers grow between the cracks.",
+        "Someone still tends this place."
+      ],
+      "background": "shrine_01",
+      "next": "z1_shrine_choice_01"
+    },
+    {
+      "id": "z1_shrine_choice_01",
+      "type": "choice",
+      "lines": [
+        "The altar hums with a low warmth.",
+        "You could kneel. You could leave it be."
+      ],
+      "background": "shrine_01",
+      "buttons": [
+        { "label": "Kneel", "next": "z1_shrine_kneel_01" },
+        { "label": "Leave It", "next": "z1_shrine_leave_01" },
+        { "label": "Search Around", "next": "z1_shrine_search_01" }
+      ]
+    },
+    {
+      "id": "z1_shrine_kneel_01",
+      "type": "story",
+      "lines": [
+        "The warmth spreads through you.",
+        "Old stone. Old grace.",
+        "Something mends that wasn't broken."
+      ],
+      "background": "shrine_01",
+      "heal": 8,
+      "next": "z1_random_pool_02"
+    },
+    {
+      "id": "z1_shrine_leave_01",
+      "type": "story",
+      "lines": [
+        "You nod to the altar and walk on.",
+        "Some things are not for you.",
+        "Not yet."
+      ],
+      "background": "forest_interior_01",
+      "next": "z1_random_pool_02"
+    },
+    {
+      "id": "z1_shrine_search_01",
+      "type": "discovery",
+      "lines": [
+        "Behind the altar, wrapped in cloth,",
+        "offerings left by other travelers.",
+        "One is meant for you."
+      ],
+      "background": "shrine_01",
+      "offers": ["magic_restore", "hazard_keen_eye", "melee_guard"],
+      "count": 1,
+      "next": "z1_random_pool_02"
+    },
+
+    {
+      "id": "z1_trap_01",
+      "type": "story",
+      "lines": [
+        "A rope snaps taut.",
+        "The ground lurches.",
+        "Someone set this here on purpose."
+      ],
+      "background": "forest_trap_01",
+      "next": "z1_trap_hazard_01"
+    },
+    {
+      "id": "z1_trap_hazard_01",
+      "type": "hazard",
+      "lines": [
+        "Wire bites into your ankle.",
+        "A log swings from the canopy above.",
+        "You have half a second."
+      ],
+      "background": "forest_trap_01",
+      "hazard": {
+        "name": "Snare Trap",
+        "image": "forest_trap_01",
+        "difficulty": 3,
+        "damage": 4,
+        "relevantCards": ["hazard_assist", "magic"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z1_trap_flee_01" }
+      ],
+      "outcomes": {
+        "success": "z1_trap_success_01",
+        "failure": "z1_trap_fail_01"
+      }
+    },
+    {
+      "id": "z1_trap_success_01",
+      "type": "story",
+      "lines": [
+        "You duck. The log whistles overhead.",
+        "Splinters rain down.",
+        "Close. Too close."
+      ],
+      "background": "forest_interior_01",
+      "next": "z1_random_pool_02"
+    },
+    {
+      "id": "z1_trap_fail_01",
+      "type": "story",
+      "lines": [
+        "The log catches your shoulder.",
+        "You spin and hit the ground hard.",
+        "The forest blurs."
+      ],
+      "background": "forest_trap_01",
+      "damage": 4,
+      "next": "z1_random_pool_02"
+    },
+    {
+      "id": "z1_trap_flee_01",
+      "type": "story",
+      "lines": [
+        "You throw yourself sideways.",
+        "The trap triggers behind you.",
+        "Your ankle throbs where the wire caught it."
+      ],
+      "background": "forest_interior_01",
+      "next": "z1_random_pool_02"
+    },
+
+    {
+      "id": "z1_stranger_01",
+      "type": "story",
+      "lines": [
+        "A figure sits by a low fire.",
+        "They do not look up as you approach.",
+        "Smoke curls between you."
+      ],
+      "background": "stranger_camp_01",
+      "next": "z1_stranger_choice_01"
+    },
+    {
+      "id": "z1_stranger_choice_01",
+      "type": "choice",
+      "lines": [
+        "The stranger's hands are empty. Their face is hidden.",
+        "The fire crackles. They wait."
+      ],
+      "background": "stranger_camp_01",
+      "buttons": [
+        { "label": "Sit Down", "next": "z1_stranger_sit_01" },
+        { "label": "Keep Walking", "next": "z1_stranger_pass_01" },
+        { "label": "Ask Who They Are", "next": "z1_stranger_ask_01" }
+      ]
+    },
+    {
+      "id": "z1_stranger_sit_01",
+      "type": "story",
+      "lines": [
+        "You sit. They pass you something warm to drink.",
+        "Neither of you speaks.",
+        "When you stand again, you feel rested."
+      ],
+      "background": "stranger_camp_01",
+      "heal": 4,
+      "next": "z1_random_pool_02"
+    },
+    {
+      "id": "z1_stranger_pass_01",
+      "type": "story",
+      "lines": [
+        "You nod and walk on.",
+        "The fire's warmth fades behind you.",
+        "Some meetings are just that."
+      ],
+      "background": "forest_interior_01",
+      "next": "z1_random_pool_02"
+    },
+    {
+      "id": "z1_stranger_ask_01",
+      "type": "story",
+      "lines": [
+        "\"Just a traveler,\" they say.",
+        "They look up. Their eyes are kind.",
+        "\"Same as you. Here — take this.\""
+      ],
+      "background": "stranger_camp_01",
+      "next": "z1_stranger_discovery_01"
+    },
+    {
+      "id": "z1_stranger_discovery_01",
+      "type": "discovery",
+      "lines": [
+        "The stranger opens a worn leather pouch.",
+        "Inside, shapes wrapped in cloth.",
+        "\"Pick one. It's served me well.\""
+      ],
+      "background": "stranger_camp_01",
+      "offers": ["melee_strike", "magic_shatter", "hazard_steady_hand"],
+      "count": 1,
+      "next": "z1_random_pool_02"
+    },
+
+    {
+      "id": "z1_clearing_rest_01",
+      "type": "story",
+      "lines": [
+        "A clearing opens in the trees.",
+        "Warm light. Soft ground. Birdsong.",
+        "The forest offers a moment of peace."
+      ],
+      "background": "forest_clearing_01",
+      "heal": 5,
+      "next": "z1_random_pool_02"
+    },
+
+    { "_comment": "=== ZONE 1 SECOND RANDOM POOL ===" },
+
+    {
+      "id": "z1_random_pool_02",
+      "type": "random_pool",
+      "description": "Late-zone random encounters before the anchor",
+      "pool": [
+        { "nodeId": "z1_ravine_01", "weight": 3 },
+        { "nodeId": "z1_ruins_01", "weight": 2 },
+        { "nodeId": "z1_mist_01", "weight": 2 },
+        { "nodeId": "z1_clearing_rest_02", "weight": 1 }
+      ]
+    },
+
+    { "_comment": "=== SECOND POOL ENCOUNTERS ===" },
+
+    {
+      "id": "z1_ravine_01",
+      "type": "hazard",
+      "lines": [
+        "The path drops away without warning.",
+        "A ravine. Deep. The bridge is rotted through.",
+        "You need to cross."
+      ],
+      "background": "ravine_01",
+      "hazard": {
+        "name": "Broken Bridge",
+        "image": "ravine_01",
+        "difficulty": 5,
+        "damage": 7,
+        "relevantCards": ["hazard_assist", "magic"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z1_ravine_flee_01" }
+      ],
+      "outcomes": {
+        "success": "z1_ravine_success_01",
+        "failure": "z1_ravine_fail_01"
+      }
+    },
+    {
+      "id": "z1_ravine_success_01",
+      "type": "story",
+      "lines": [
+        "Board by board, you cross.",
+        "The wood groans but holds.",
+        "You don't look down."
+      ],
+      "background": "forest_interior_01",
+      "next": "z1_anchor_approach_01"
+    },
+    {
+      "id": "z1_ravine_fail_01",
+      "type": "story",
+      "lines": [
+        "The board snaps.",
+        "You catch the edge, barely.",
+        "Pulling yourself up costs everything."
+      ],
+      "background": "ravine_01",
+      "damage": 7,
+      "next": "z1_anchor_approach_01"
+    },
+    {
+      "id": "z1_ravine_flee_01",
+      "type": "story",
+      "lines": [
+        "You find another way around.",
+        "It takes longer. Your legs ache.",
+        "But the ground stayed under you."
+      ],
+      "background": "forest_interior_01",
+      "next": "z1_anchor_approach_01"
+    },
+
+    {
+      "id": "z1_ruins_01",
+      "type": "story",
+      "lines": [
+        "Stone walls half-swallowed by ivy.",
+        "A doorway that leads nowhere.",
+        "This was something, once."
+      ],
+      "background": "ruins_01",
+      "next": "z1_ruins_choice_01"
+    },
+    {
+      "id": "z1_ruins_choice_01",
+      "type": "choice",
+      "lines": [
+        "The ruins are quiet. Too quiet.",
+        "Something waits inside. Or nothing does."
+      ],
+      "background": "ruins_01",
+      "buttons": [
+        { "label": "Go Inside", "next": "z1_ruins_enter_01" },
+        { "label": "Circle Around", "next": "z1_ruins_circle_01" },
+        { "label": "Move On", "next": "z1_anchor_approach_01" }
+      ]
+    },
+    {
+      "id": "z1_ruins_enter_01",
+      "type": "hazard",
+      "lines": [
+        "The floor gives way.",
+        "You fall into darkness.",
+        "Something scuttles in the walls."
+      ],
+      "background": "ruins_interior_01",
+      "hazard": {
+        "name": "Collapsing Floor",
+        "image": "ruins_interior_01",
+        "difficulty": 4,
+        "damage": 6,
+        "relevantCards": ["hazard_assist", "melee"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z1_ruins_flee_01" }
+      ],
+      "outcomes": {
+        "success": "z1_ruins_success_01",
+        "failure": "z1_ruins_fail_01"
+      }
+    },
+    {
+      "id": "z1_ruins_success_01",
+      "type": "discovery",
+      "lines": [
+        "You land on your feet in a cellar.",
+        "Old tools. Old supplies.",
+        "Something here still has an edge."
+      ],
+      "background": "ruins_interior_01",
+      "offers": ["melee_cleave", "magic_veil", "hazard_sharp_instinct"],
+      "count": 1,
+      "next": "z1_anchor_approach_01"
+    },
+    {
+      "id": "z1_ruins_fail_01",
+      "type": "story",
+      "lines": [
+        "You land hard. Dust fills your lungs.",
+        "Something sharp finds your side.",
+        "You climb out bleeding."
+      ],
+      "background": "ruins_interior_01",
+      "damage": 6,
+      "next": "z1_anchor_approach_01"
+    },
+    {
+      "id": "z1_ruins_flee_01",
+      "type": "story",
+      "lines": [
+        "You scramble back before the floor takes you.",
+        "Dust billows from the hole.",
+        "Whatever was down there stays down there."
+      ],
+      "background": "ruins_01",
+      "next": "z1_anchor_approach_01"
+    },
+    {
+      "id": "z1_ruins_circle_01",
+      "type": "story",
+      "lines": [
+        "Around back, morning glories climb the stone.",
+        "A robin hops along a crumbled wall.",
+        "Nothing dangerous here. Nothing useful either."
+      ],
+      "background": "ruins_01",
+      "next": "z1_anchor_approach_01"
+    },
+
+    {
+      "id": "z1_mist_01",
+      "type": "story",
+      "lines": [
+        "Mist rolls in from the low ground.",
+        "The trees fade to silhouettes.",
+        "Your own footsteps sound far away."
+      ],
+      "background": "forest_mist_01",
+      "next": "z1_mist_hazard_01"
+    },
+    {
+      "id": "z1_mist_hazard_01",
+      "type": "hazard",
+      "lines": [
+        "The mist thickens.",
+        "You can't see the path.",
+        "Something is moving beside you."
+      ],
+      "background": "forest_mist_01",
+      "hazard": {
+        "name": "The Mist",
+        "image": "forest_mist_01",
+        "difficulty": 4,
+        "damage": 5,
+        "relevantCards": ["hazard_assist", "magic"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z1_mist_flee_01" }
+      ],
+      "outcomes": {
+        "success": "z1_mist_success_01",
+        "failure": "z1_mist_fail_01"
+      }
+    },
+    {
+      "id": "z1_mist_success_01",
+      "type": "story",
+      "lines": [
+        "You keep your bearing.",
+        "The mist parts like breath.",
+        "The path was under your feet the whole time."
+      ],
+      "background": "forest_interior_01",
+      "next": "z1_anchor_approach_01"
+    },
+    {
+      "id": "z1_mist_fail_01",
+      "type": "story",
+      "lines": [
+        "You wander. Branches scratch your face.",
+        "When the mist lifts you are somewhere else.",
+        "You've lost time. And blood."
+      ],
+      "background": "forest_mist_01",
+      "damage": 5,
+      "next": "z1_anchor_approach_01"
+    },
+    {
+      "id": "z1_mist_flee_01",
+      "type": "story",
+      "lines": [
+        "You turn and run blind.",
+        "The mist clings. Then releases.",
+        "You're back where you started."
+      ],
+      "background": "forest_interior_01",
+      "next": "z1_anchor_approach_01"
+    },
+
+    {
+      "id": "z1_clearing_rest_02",
+      "type": "story",
+      "lines": [
+        "A stream. Flat rocks. Late afternoon sun.",
+        "You wash your hands in cold water.",
+        "The forest asks nothing of you here."
+      ],
+      "background": "forest_stream_01",
+      "heal": 4,
+      "next": "z1_anchor_approach_01"
+    },
+
+    { "_comment": "=== ZONE 1 ANCHOR — THE GUARDIAN ===" },
+
+    {
+      "id": "z1_anchor_approach_01",
+      "type": "story",
+      "lines": [
+        "The trees thin.",
+        "Ahead, a shape that doesn't belong to the forest.",
+        "Stone. Old stone. Carved by hands long gone."
+      ],
+      "background": "guardian_gate_01",
+      "next": "z1_anchor_approach_02"
+    },
+    {
+      "id": "z1_anchor_approach_02",
+      "type": "story",
+      "lines": [
+        "A gate stands between two carved pillars.",
+        "Ivy chokes the stonework.",
+        "Beyond it — the forest changes."
+      ],
+      "background": "guardian_gate_01",
+      "next": "z1_anchor_approach_03"
+    },
+    {
+      "id": "z1_anchor_approach_03",
+      "type": "story",
+      "lines": [
+        "The narrator pauses.",
+        "Sets down a card.",
+        "\"Something guards this place.\""
+      ],
+      "background": "narrator_table",
+      "next": "z1_boss_01"
+    },
+    {
+      "id": "z1_boss_01",
+      "type": "story",
+      "lines": [
+        "It steps from behind the pillar.",
+        "Moss and stone given shape. Eyes like river glass.",
+        "The Forest Guardian. It has waited a long time."
+      ],
+      "background": "forest_guardian_01",
+      "next": "z1_boss_hazard_01"
+    },
+    {
+      "id": "z1_boss_hazard_01",
+      "type": "hazard",
+      "lines": [
+        "The Guardian raises a hand of twisted root.",
+        "The ground trembles.",
+        "This is not a creature that bluffs."
+      ],
+      "background": "forest_guardian_01",
+      "hazard": {
+        "name": "Forest Guardian",
+        "image": "forest_guardian_01",
+        "difficulty": 5,
+        "damage": 12,
+        "relevantCards": ["melee", "hazard_assist", "magic"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z1_boss_flee_01" }
+      ],
+      "outcomes": {
+        "success": "z1_boss_success_01",
+        "failure": "z1_boss_fail_01"
+      }
+    },
+    {
+      "id": "z1_boss_success_01",
+      "type": "story",
+      "lines": [
+        "The Guardian lowers its arm.",
+        "Its eyes dim. It steps aside.",
+        "The gate opens."
+      ],
+      "background": "guardian_gate_01",
+      "next": "z1_boss_discovery_01"
+    },
+    {
+      "id": "z1_boss_discovery_01",
+      "type": "discovery",
+      "lines": [
+        "At the Guardian's feet,",
+        "offerings from those who came before.",
+        "One still holds power."
+      ],
+      "background": "guardian_gate_01",
+      "offers": ["magic_restore", "melee_parry", "hazard_iron_nerve"],
+      "count": 1,
+      "next": "z1_ending_01"
+    },
+    {
+      "id": "z1_boss_fail_01",
+      "type": "story",
+      "lines": [
+        "Root and stone crash against you.",
+        "The forest itself rejects you.",
+        "But the Guardian is spent. The gate opens anyway."
+      ],
+      "background": "forest_guardian_01",
+      "damage": 12,
+      "next": "z1_ending_01"
+    },
+    {
+      "id": "z1_boss_flee_01",
+      "type": "story",
+      "lines": [
+        "You run. The Guardian does not follow.",
+        "It cannot leave the gate.",
+        "But neither can you pass. Not yet."
+      ],
+      "background": "forest_interior_01",
+      "next": "z1_boss_01"
+    },
+
+    { "_comment": "=== ZONE 1 ENDING — TRANSITION TO ZONE 2 ===" },
+
+    {
+      "id": "z1_ending_01",
+      "type": "story",
+      "lines": [
+        "Beyond the gate the forest changes.",
+        "The trees are the same.",
+        "But the light is wrong."
+      ],
+      "background": "zone_transition_01",
+      "next": "z1_ending_02"
+    },
+    {
+      "id": "z1_ending_02",
+      "type": "story",
+      "lines": [
+        "The narrator shuffles the remaining cards.",
+        "\"The Old Wood is behind you.\"",
+        "\"What comes next — I'm not sure I should tell you.\""
+      ],
+      "background": "narrator_table",
+      "next": "z1_ending_03"
+    },
+    {
+      "id": "z1_ending_03",
+      "type": "story",
+      "lines": [
+        "The road continues east.",
+        "But the sky has a seam in it.",
+        "A thin line of light that shouldn't be there."
+      ],
+      "background": "zone_transition_01",
+      "next": "z2_start_01"
+    },
+
+    { "_comment": "=== ZONE 2: THE FRACTURED REACH — OPENING ===" },
+
+    {
+      "id": "z2_start_01",
+      "type": "story",
+      "zone": 1,
+      "heal": 5,
+      "lines": [
+        "The sky has a seam.",
+        "A thin fracture running horizon to horizon, leaking pale light.",
+        "The ground beneath your feet hums like a sleeping machine."
+      ],
+      "background": "fractured_sky_01",
+      "next": "z2_start_02"
+    },
+    {
+      "id": "z2_start_02",
+      "type": "story",
+      "lines": [
+        "The trees here are wrong. Bark peels back to reveal filaments of copper wire.",
+        "Leaves shimmer with an iridescence that belongs to screens, not forests.",
+        "The moss grows in perfect geometric patterns."
+      ],
+      "background": "fractured_sky_01",
+      "next": "z2_start_03"
+    },
+    {
+      "id": "z2_start_03",
+      "type": "story",
+      "lines": [
+        "The narrator's voice wavers.",
+        "\"This part of the story — it rewrites itself.\"",
+        "\"The world is changing faster than I can tell it.\""
+      ],
+      "background": "fractured_sky_01",
+      "next": "z2_choice_01"
+    },
+
+    { "_comment": "=== ZONE 2 EARLY CHOICE ===" },
+
+    {
+      "id": "z2_choice_01",
+      "type": "choice",
+      "lines": [
+        "Three paths branch from the fractured road.",
+        "A tower pulses with light to the north. A rift tears the air to the east.",
+        "And here — a quiet hollow where the glitching has not yet reached."
+      ],
+      "background": "fractured_sky_01",
+      "buttons": [
+        { "label": "Approach the Signal Tower", "next": "z2_signal_01" },
+        { "label": "Enter the Spatial Rift", "next": "z2_rift_01" },
+        { "label": "Rest in the Hollow", "next": "z2_campfire_01" }
+      ]
+    },
+
+    { "_comment": "=== BRANCH A: SIGNAL TOWER ===" },
+
+    {
+      "id": "z2_signal_01",
+      "type": "story",
+      "lines": [
+        "The tower is not stone. It is metal and glass, fused into the hillside.",
+        "Lights blink in sequences along its spine — a language you almost recognize.",
+        "Something inside is still broadcasting."
+      ],
+      "background": "signal_tower_01",
+      "next": "z2_signal_hazard_01"
+    },
+    {
+      "id": "z2_signal_hazard_01",
+      "type": "hazard",
+      "lines": [
+        "The tower's defense grid activates.",
+        "Arcs of energy crackle between the antenna spines.",
+        "The air tastes like lightning and old iron."
+      ],
+      "background": "signal_tower_01",
+      "hazard": {
+        "name": "Defense Grid",
+        "image": "signal_tower_01",
+        "difficulty": 4,
+        "damage": 8,
+        "relevantCards": ["hazard_assist", "magic"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z2_signal_flee_01" }
+      ],
+      "outcomes": {
+        "success": "z2_signal_success_01",
+        "failure": "z2_signal_fail_01"
+      }
+    },
+    {
+      "id": "z2_signal_success_01",
+      "type": "story",
+      "lines": [
+        "You time your approach between the pulses.",
+        "The arcs pass over you like searchlights missing their mark.",
+        "The tower's door stands open, humming with residual charge."
+      ],
+      "background": "signal_tower_01",
+      "next": "z2_signal_discovery_01"
+    },
+    {
+      "id": "z2_signal_discovery_01",
+      "type": "discovery",
+      "lines": [
+        "Inside the tower, racks of crystalline storage.",
+        "Most are cracked and dark. But three still pulse with faint light.",
+        "You can carry one."
+      ],
+      "background": "signal_tower_01",
+      "offers": ["melee_overload", "hazard_scan", "magic_surge"],
+      "count": 1,
+      "next": "z2_signal_02"
+    },
+    {
+      "id": "z2_signal_fail_01",
+      "type": "story",
+      "lines": [
+        "The arc catches you full in the chest.",
+        "Every nerve fires at once. Your vision whites out.",
+        "When you can see again, the grid has gone dormant."
+      ],
+      "background": "signal_tower_01",
+      "damage": 8,
+      "next": "z2_signal_02"
+    },
+    {
+      "id": "z2_signal_flee_01",
+      "type": "story",
+      "lines": [
+        "You throw yourself back as the arcs converge.",
+        "The heat singes your hair. The smell of ozone follows you.",
+        "The tower keeps broadcasting to no one."
+      ],
+      "background": "fractured_sky_01",
+      "next": "z2_signal_02"
+    },
+    {
+      "id": "z2_signal_02",
+      "type": "story",
+      "lines": [
+        "Beyond the tower, the landscape flattens into cracked plains.",
+        "The fracture in the sky is wider here. You can see shapes moving inside it.",
+        "The road continues, half-paved in a material that does not exist yet."
+      ],
+      "background": "fractured_sky_01",
+      "next": "z2_random_pool_01"
+    },
+
+    { "_comment": "=== BRANCH B: SPATIAL RIFT ===" },
+
+    {
+      "id": "z2_rift_01",
+      "type": "story",
+      "lines": [
+        "The rift hangs in the air like a wound in glass.",
+        "Through it, you see the same landscape — but decades forward or back.",
+        "Time drips from its edges like condensation."
+      ],
+      "background": "fractured_sky_01",
+      "next": "z2_rift_hazard_01"
+    },
+    {
+      "id": "z2_rift_hazard_01",
+      "type": "hazard",
+      "lines": [
+        "The rift expands. Gravity bends toward it.",
+        "Debris lifts from the ground — stones, branches, bones.",
+        "You feel your own weight shifting."
+      ],
+      "background": "fractured_sky_01",
+      "hazard": {
+        "name": "Spatial Rift",
+        "image": "fractured_sky_01",
+        "difficulty": 5,
+        "damage": 7,
+        "relevantCards": ["melee", "hazard_assist"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z2_rift_flee_01" }
+      ],
+      "outcomes": {
+        "success": "z2_rift_success_01",
+        "failure": "z2_rift_fail_01"
+      }
+    },
+    {
+      "id": "z2_rift_success_01",
+      "type": "story",
+      "lines": [
+        "You dig your heels into the earth and push through.",
+        "The pull releases like a held breath.",
+        "On the other side, the air is still and the ground is solid."
+      ],
+      "background": "fractured_sky_01",
+      "next": "z2_rift_discovery_01"
+    },
+    {
+      "id": "z2_rift_discovery_01",
+      "type": "discovery",
+      "lines": [
+        "Where the rift collapsed, objects from another time lie scattered.",
+        "Tools from a world that learned different lessons.",
+        "One fits your hand."
+      ],
+      "background": "fractured_sky_01",
+      "offers": ["melee_overload", "hazard_steady_hand", "magic_surge"],
+      "count": 1,
+      "next": "z2_rift_02"
+    },
+    {
+      "id": "z2_rift_fail_01",
+      "type": "story",
+      "lines": [
+        "The rift pulls you off your feet.",
+        "You tumble through seconds of displaced time — each one cuts.",
+        "When it spits you out, you are bleeding from wounds you did not receive."
+      ],
+      "background": "fractured_sky_01",
+      "damage": 7,
+      "next": "z2_rift_02"
+    },
+    {
+      "id": "z2_rift_flee_01",
+      "type": "story",
+      "lines": [
+        "You turn and run before the pull takes you.",
+        "Behind you, the rift groans and shrinks.",
+        "The ground stops shaking. Your hands do not."
+      ],
+      "background": "fractured_sky_01",
+      "next": "z2_rift_02"
+    },
+    {
+      "id": "z2_rift_02",
+      "type": "story",
+      "lines": [
+        "The terrain beyond the rift is scarred and quiet.",
+        "Grass grows in spirals where time folded in on itself.",
+        "You walk forward. The past walks beside you."
+      ],
+      "background": "fractured_sky_01",
+      "next": "z2_random_pool_01"
+    },
+
+    { "_comment": "=== BRANCH C: REST ===" },
+
+    {
+      "id": "z2_campfire_01",
+      "type": "story",
+      "lines": [
+        "The hollow is untouched. Real moss. Real stone.",
+        "You sit and breathe air that does not taste of metal.",
+        "For a few minutes, the world remembers what it was."
+      ],
+      "background": "fractured_sky_01",
+      "heal": 6,
+      "next": "z2_random_pool_01"
+    },
+
+    { "_comment": "=== ZONE 2 RANDOM POOL 1 ===" },
+
+    {
+      "id": "z2_random_pool_01",
+      "type": "random_pool",
+      "description": "Mid-zone random encounters for The Fractured Reach",
+      "pool": [
+        { "nodeId": "z2_automaton_01", "weight": 3 },
+        { "nodeId": "z2_glass_01", "weight": 2 },
+        { "nodeId": "z2_static_01", "weight": 3 },
+        { "nodeId": "z2_wanderer_01", "weight": 1 },
+        { "nodeId": "z2_oasis_01", "weight": 1 }
+      ]
+    },
+
+    { "_comment": "=== ENCOUNTER: AUTOMATON ===" },
+
+    {
+      "id": "z2_automaton_01",
+      "type": "story",
+      "lines": [
+        "It stands in the road like a forgotten sentinel.",
+        "Metal limbs, jointed wrong. A face plate with no face behind it.",
+        "Its chest cavity glows a dull amber. It is still running."
+      ],
+      "background": "metal_ruins_01",
+      "next": "z2_automaton_hazard_01"
+    },
+    {
+      "id": "z2_automaton_hazard_01",
+      "type": "hazard",
+      "lines": [
+        "The automaton's head swivels toward you.",
+        "A sound like grinding gears. Its arms reconfigure.",
+        "It does not recognize you as friendly."
+      ],
+      "background": "metal_ruins_01",
+      "hazard": {
+        "name": "Rusted Automaton",
+        "image": "metal_ruins_01",
+        "difficulty": 5,
+        "damage": 9,
+        "relevantCards": ["melee", "hazard_assist"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z2_automaton_flee_01" }
+      ],
+      "outcomes": {
+        "success": "z2_automaton_success_01",
+        "failure": "z2_automaton_fail_01"
+      }
+    },
+    {
+      "id": "z2_automaton_success_01",
+      "type": "story",
+      "lines": [
+        "You find the seam in its armor and strike true.",
+        "Sparks fountain from its neck joint. The amber light flickers.",
+        "It drops to one knee and goes still."
+      ],
+      "background": "metal_ruins_01",
+      "next": "z2_automaton_discovery_01"
+    },
+    {
+      "id": "z2_automaton_discovery_01",
+      "type": "discovery",
+      "lines": [
+        "Inside the automaton's chest cavity, components still hum.",
+        "Salvage from a world that built things to last.",
+        "One piece calls to you."
+      ],
+      "background": "metal_ruins_01",
+      "offers": ["melee_overload", "hazard_scan", "magic_shatter"],
+      "count": 1,
+      "next": "z2_anchor_01"
+    },
+    {
+      "id": "z2_automaton_fail_01",
+      "type": "story",
+      "lines": [
+        "Its arm catches you across the ribs.",
+        "Metal on bone. The impact lifts you off your feet.",
+        "When you rise, the automaton has already turned away. Threat neutralized."
+      ],
+      "background": "metal_ruins_01",
+      "damage": 9,
+      "next": "z2_anchor_01"
+    },
+    {
+      "id": "z2_automaton_flee_01",
+      "type": "story",
+      "lines": [
+        "You back away slowly. No sudden movements.",
+        "The amber eye tracks you for thirty paces.",
+        "Then it resumes its patrol of nothing."
+      ],
+      "background": "metal_ruins_01",
+      "next": "z2_anchor_01"
+    },
+
+    { "_comment": "=== ENCOUNTER: GLASS FOREST ===" },
+
+    {
+      "id": "z2_glass_01",
+      "type": "story",
+      "lines": [
+        "The trees here are glass.",
+        "Translucent trunks rising thirty feet, refracting light into colors that have no names.",
+        "They ring like bells when the wind passes through."
+      ],
+      "background": "glass_forest_01",
+      "next": "z2_glass_choice_01"
+    },
+    {
+      "id": "z2_glass_choice_01",
+      "type": "choice",
+      "lines": [
+        "One tree pulses with inner light. Warmth radiates from its trunk.",
+        "The glass is smooth, almost inviting."
+      ],
+      "background": "glass_forest_01",
+      "buttons": [
+        { "label": "Touch the Glass", "next": "z2_glass_touch_01" },
+        { "label": "Walk Around It", "next": "z2_glass_avoid_01" },
+        { "label": "Study the Patterns", "next": "z2_glass_study_01" }
+      ]
+    },
+    {
+      "id": "z2_glass_touch_01",
+      "type": "story",
+      "lines": [
+        "The glass shatters at your touch.",
+        "A thousand bright fragments bite into your hand.",
+        "Inside the trunk — nothing. Just light that fades."
+      ],
+      "background": "glass_forest_01",
+      "damage": 4,
+      "next": "z2_glass_02"
+    },
+    {
+      "id": "z2_glass_avoid_01",
+      "type": "story",
+      "lines": [
+        "You give the glass trees a wide berth.",
+        "Their ringing follows you — a chord that almost forms a word.",
+        "You do not look back."
+      ],
+      "background": "glass_forest_01",
+      "next": "z2_glass_02"
+    },
+    {
+      "id": "z2_glass_study_01",
+      "type": "story",
+      "lines": [
+        "You kneel and watch the light move inside the glass.",
+        "Patterns emerge. Fractals of data, encoded in crystal.",
+        "Something in the pattern soothes you. Old knowledge, freely given."
+      ],
+      "background": "glass_forest_01",
+      "heal": 3,
+      "next": "z2_glass_02"
+    },
+    {
+      "id": "z2_glass_02",
+      "type": "story",
+      "lines": [
+        "The glass forest thins into scattered shards.",
+        "The ground crunches underfoot like frozen snow.",
+        "Ahead, the landscape solidifies into something more familiar. Almost."
+      ],
+      "background": "glass_forest_01",
+      "next": "z2_anchor_01"
+    },
+
+    { "_comment": "=== ENCOUNTER: STATIC FIELD ===" },
+
+    {
+      "id": "z2_static_01",
+      "type": "story",
+      "lines": [
+        "The air crackles. Your hair lifts from your scalp.",
+        "A field of pure static hangs across the road like a curtain.",
+        "Through it, shapes move in stuttering frames."
+      ],
+      "background": "static_field_01",
+      "next": "z2_static_hazard_01"
+    },
+    {
+      "id": "z2_static_hazard_01",
+      "type": "hazard",
+      "lines": [
+        "The static field surges outward.",
+        "Your muscles seize. Your vision tears into horizontal lines.",
+        "You need to push through before it locks you in place."
+      ],
+      "background": "static_field_01",
+      "hazard": {
+        "name": "Static Field",
+        "image": "static_field_01",
+        "difficulty": 4,
+        "damage": 6,
+        "relevantCards": ["hazard_assist", "magic"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z2_static_flee_01" }
+      ],
+      "outcomes": {
+        "success": "z2_static_success_01",
+        "failure": "z2_static_fail_01"
+      }
+    },
+    {
+      "id": "z2_static_success_01",
+      "type": "story",
+      "lines": [
+        "You lower your shoulder and charge.",
+        "The static parts around you like a curtain of needles.",
+        "On the other side, silence. Blessed, ordinary silence."
+      ],
+      "background": "static_field_01",
+      "next": "z2_anchor_01"
+    },
+    {
+      "id": "z2_static_fail_01",
+      "type": "story",
+      "lines": [
+        "The field catches you mid-stride.",
+        "Every nerve screams. Time skips — you lose seconds, maybe minutes.",
+        "When you fall through the other side, you are smoking."
+      ],
+      "background": "static_field_01",
+      "damage": 6,
+      "next": "z2_anchor_01"
+    },
+    {
+      "id": "z2_static_flee_01",
+      "type": "story",
+      "lines": [
+        "You scramble backward as the field surges.",
+        "It brushes your fingers — a jolt that makes your teeth sing.",
+        "You find another way around. The long way."
+      ],
+      "background": "static_field_01",
+      "next": "z2_anchor_01"
+    },
+
+    { "_comment": "=== ENCOUNTER: WANDERER ===" },
+
+    {
+      "id": "z2_wanderer_01",
+      "type": "story",
+      "lines": [
+        "A figure sits on a rusted girder, legs dangling over nothing.",
+        "They wear a coat stitched from circuit boards and moth-eaten wool.",
+        "They see you and smile. The smile glitches — repeats — settles."
+      ],
+      "background": "metal_ruins_01",
+      "next": "z2_wanderer_choice_01"
+    },
+    {
+      "id": "z2_wanderer_choice_01",
+      "type": "choice",
+      "lines": [
+        "The wanderer opens their coat. Inside, objects hang from hooks.",
+        "\"Everything has a price. Even conversation.\""
+      ],
+      "background": "metal_ruins_01",
+      "buttons": [
+        { "label": "Trade", "next": "z2_wanderer_trade_01" },
+        { "label": "Talk", "next": "z2_wanderer_talk_01" },
+        { "label": "Walk Away", "next": "z2_wanderer_ignore_01" }
+      ]
+    },
+    {
+      "id": "z2_wanderer_trade_01",
+      "type": "story",
+      "lines": [
+        "They unhook something from the inside of their coat.",
+        "It changes shape in their hand — settling into something you can use.",
+        "\"Fair exchange. The Reach provides.\""
+      ],
+      "background": "metal_ruins_01",
+      "next": "z2_wanderer_discovery_01"
+    },
+    {
+      "id": "z2_wanderer_discovery_01",
+      "type": "discovery",
+      "lines": [
+        "The wanderer lays three objects on the girder between you.",
+        "Each hums with a different frequency.",
+        "\"One only. That's the rule.\""
+      ],
+      "background": "metal_ruins_01",
+      "offers": ["melee_reckless", "hazard_quick_step", "magic_mend"],
+      "count": 1,
+      "next": "z2_wanderer_02"
+    },
+    {
+      "id": "z2_wanderer_talk_01",
+      "type": "story",
+      "lines": [
+        "\"The Reach remembers what it was,\" they say.",
+        "\"Fields. Forests. A world before the seam.\"",
+        "Their voice steadies you. The glitching slows while they speak."
+      ],
+      "background": "metal_ruins_01",
+      "heal": 4,
+      "next": "z2_wanderer_02"
+    },
+    {
+      "id": "z2_wanderer_ignore_01",
+      "type": "story",
+      "lines": [
+        "You nod and keep walking.",
+        "\"Your choice,\" they call after you. \"Everything is.\"",
+        "When you look back, the girder is empty."
+      ],
+      "background": "metal_ruins_01",
+      "next": "z2_wanderer_02"
+    },
+    {
+      "id": "z2_wanderer_02",
+      "type": "story",
+      "lines": [
+        "The road resumes its broken path through the Reach.",
+        "Metal studs poke through the soil like old bones.",
+        "The sky's seam pulses once. Then goes still."
+      ],
+      "background": "fractured_sky_01",
+      "next": "z2_anchor_01"
+    },
+
+    { "_comment": "=== ENCOUNTER: OASIS ===" },
+
+    {
+      "id": "z2_oasis_01",
+      "type": "story",
+      "lines": [
+        "A pool of clear water, impossibly blue, surrounded by real grass.",
+        "No glitching. No hum. Just water and sunlight.",
+        "You drink. You rest. The Reach holds its breath around you."
+      ],
+      "background": "fractured_sky_01",
+      "heal": 6,
+      "next": "z2_anchor_01"
+    },
+
+    { "_comment": "=== ZONE 2 ANCHOR 1 ===" },
+
+    {
+      "id": "z2_anchor_01",
+      "type": "story",
+      "lines": [
+        "The narrator clears their throat.",
+        "But the sound comes out wrong — layered, echoing, as if two voices spoke at once.",
+        "\"I'm — I'm still here. The story is still mine to tell.\""
+      ],
+      "background": "fractured_sky_01",
+      "next": "z2_anchor_02"
+    },
+    {
+      "id": "z2_anchor_02",
+      "type": "story",
+      "lines": [
+        "The words on the page are shifting.",
+        "Letters rearranging themselves when you are not looking.",
+        "The narrator grips the table. \"Something is rewriting the next chapter.\""
+      ],
+      "background": "fractured_sky_01",
+      "next": "z2_anchor_03"
+    },
+    {
+      "id": "z2_anchor_03",
+      "type": "story",
+      "lines": [
+        "They steady themselves. Shuffle the cards with shaking hands.",
+        "\"We press on. The story does not stop because the storyteller is afraid.\"",
+        "The road ahead flickers between forest and steel corridors."
+      ],
+      "background": "fractured_sky_01",
+      "next": "z2_random_pool_02"
+    },
+
+    { "_comment": "=== ZONE 2 RANDOM POOL 2 ===" },
+
+    {
+      "id": "z2_random_pool_02",
+      "type": "random_pool",
+      "description": "Late-zone random encounters for The Fractured Reach",
+      "pool": [
+        { "nodeId": "z2_echo_01", "weight": 3 },
+        { "nodeId": "z2_foundry_01", "weight": 2 },
+        { "nodeId": "z2_swarm_01", "weight": 3 },
+        { "nodeId": "z2_memory_01", "weight": 1 },
+        { "nodeId": "z2_shelter_01", "weight": 1 }
+      ]
+    },
+
+    { "_comment": "=== ENCOUNTER: ECHO ===" },
+
+    {
+      "id": "z2_echo_01",
+      "type": "story",
+      "lines": [
+        "You hear your own footsteps — but from ahead of you.",
+        "A figure rounds the corner. It wears your face.",
+        "Its mouth moves. Your words, seconds before you speak them."
+      ],
+      "background": "echo_chamber_01",
+      "next": "z2_echo_hazard_01"
+    },
+    {
+      "id": "z2_echo_hazard_01",
+      "type": "hazard",
+      "lines": [
+        "The echo lunges. It knows what you will do before you do it.",
+        "Every feint is matched. Every step mirrored.",
+        "You must break the pattern."
+      ],
+      "background": "echo_chamber_01",
+      "hazard": {
+        "name": "Temporal Echo",
+        "image": "echo_chamber_01",
+        "difficulty": 6,
+        "damage": 10,
+        "relevantCards": ["melee", "magic"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z2_echo_flee_01" }
+      ],
+      "outcomes": {
+        "success": "z2_echo_success_01",
+        "failure": "z2_echo_fail_01"
+      }
+    },
+    {
+      "id": "z2_echo_success_01",
+      "type": "story",
+      "lines": [
+        "You do something you have never done before.",
+        "The echo hesitates. That half-second is enough.",
+        "It shatters into fragments of displaced time and fades."
+      ],
+      "background": "echo_chamber_01",
+      "next": "z2_echo_discovery_01"
+    },
+    {
+      "id": "z2_echo_discovery_01",
+      "type": "discovery",
+      "lines": [
+        "Where the echo fell, temporal residue crystallizes.",
+        "Shapes form from the fragments — tools forged from broken time.",
+        "One solidifies in your hand."
+      ],
+      "background": "echo_chamber_01",
+      "offers": ["melee_parry", "magic_veil", "hazard_second_look"],
+      "count": 1,
+      "next": "z2_anchor_04"
+    },
+    {
+      "id": "z2_echo_fail_01",
+      "type": "story",
+      "lines": [
+        "It strikes where you were going to be.",
+        "The blow lands before you feel it — time folding pain backward.",
+        "The echo dissolves, satisfied. You are left reeling."
+      ],
+      "background": "echo_chamber_01",
+      "damage": 10,
+      "next": "z2_anchor_04"
+    },
+    {
+      "id": "z2_echo_flee_01",
+      "type": "story",
+      "lines": [
+        "You run. It runs beside you, perfectly matched.",
+        "Then it stops. Watches you go.",
+        "Its expression is yours — relief, tinged with shame."
+      ],
+      "background": "echo_chamber_01",
+      "next": "z2_anchor_04"
+    },
+
+    { "_comment": "=== ENCOUNTER: FOUNDRY ===" },
+
+    {
+      "id": "z2_foundry_01",
+      "type": "story",
+      "lines": [
+        "The ground opens into a vast pit.",
+        "Below, machines that were never built by human hands still churn.",
+        "Conveyor belts carry shapes that almost make sense."
+      ],
+      "background": "foundry_01",
+      "next": "z2_foundry_hazard_01"
+    },
+    {
+      "id": "z2_foundry_hazard_01",
+      "type": "hazard",
+      "lines": [
+        "The foundry detects your presence.",
+        "Mechanical arms swing toward you — welding torches for fingers.",
+        "It wants to build you into something else."
+      ],
+      "background": "foundry_01",
+      "hazard": {
+        "name": "Foundry Arms",
+        "image": "foundry_01",
+        "difficulty": 5,
+        "damage": 8,
+        "relevantCards": ["melee", "hazard_assist"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z2_foundry_flee_01" }
+      ],
+      "outcomes": {
+        "success": "z2_foundry_success_01",
+        "failure": "z2_foundry_fail_01"
+      }
+    },
+    {
+      "id": "z2_foundry_success_01",
+      "type": "story",
+      "lines": [
+        "You weave between the arms, timing each step.",
+        "A torch grazes your shoulder — close, but you keep moving.",
+        "The foundry loses interest. You were not the right material."
+      ],
+      "background": "foundry_01",
+      "next": "z2_anchor_04"
+    },
+    {
+      "id": "z2_foundry_fail_01",
+      "type": "story",
+      "lines": [
+        "An arm pins you to the conveyor.",
+        "Heat. Pressure. The torch traces a line across your side.",
+        "You tear free before it finishes its work."
+      ],
+      "background": "foundry_01",
+      "damage": 8,
+      "next": "z2_anchor_04"
+    },
+    {
+      "id": "z2_foundry_flee_01",
+      "type": "story",
+      "lines": [
+        "You scramble back from the pit's edge.",
+        "The arms reach after you, extending further than they should.",
+        "They retract. The foundry resumes its purposeless labor."
+      ],
+      "background": "foundry_01",
+      "next": "z2_anchor_04"
+    },
+
+    { "_comment": "=== ENCOUNTER: SWARM ===" },
+
+    {
+      "id": "z2_swarm_01",
+      "type": "story",
+      "lines": [
+        "A cloud of metallic insects rises from the tall grass.",
+        "Each one no bigger than a thumbnail, wings like razor foil.",
+        "They move as one mind — and that mind has noticed you."
+      ],
+      "background": "fractured_sky_01",
+      "next": "z2_swarm_hazard_01"
+    },
+    {
+      "id": "z2_swarm_hazard_01",
+      "type": "hazard",
+      "lines": [
+        "The swarm contracts into a dense, humming sphere.",
+        "Then it unfolds toward you — a wave of glinting edges.",
+        "You cannot fight each one. You must fight them all."
+      ],
+      "background": "fractured_sky_01",
+      "hazard": {
+        "name": "Razor Swarm",
+        "image": "fractured_sky_01",
+        "difficulty": 5,
+        "damage": 8,
+        "relevantCards": ["hazard_assist", "magic"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z2_swarm_flee_01" }
+      ],
+      "outcomes": {
+        "success": "z2_swarm_success_01",
+        "failure": "z2_swarm_fail_01"
+      }
+    },
+    {
+      "id": "z2_swarm_success_01",
+      "type": "story",
+      "lines": [
+        "You find the frequency — a sharp clap that disrupts their signal.",
+        "The swarm scatters into a thousand individual insects, confused, harmless.",
+        "They drift away like metallic snow."
+      ],
+      "background": "fractured_sky_01",
+      "next": "z2_anchor_04"
+    },
+    {
+      "id": "z2_swarm_fail_01",
+      "type": "story",
+      "lines": [
+        "They are on you before you can react.",
+        "A thousand tiny cuts. Each one precise, surgical.",
+        "When they lift, you are marked with patterns like circuitry."
+      ],
+      "background": "fractured_sky_01",
+      "damage": 8,
+      "next": "z2_anchor_04"
+    },
+    {
+      "id": "z2_swarm_flee_01",
+      "type": "story",
+      "lines": [
+        "You dive into a crevice in the broken road.",
+        "The swarm passes overhead — a sound like shuffling cards.",
+        "When the humming fades, you crawl out, shaking."
+      ],
+      "background": "fractured_sky_01",
+      "next": "z2_anchor_04"
+    },
+
+    { "_comment": "=== ENCOUNTER: MEMORY ===" },
+
+    {
+      "id": "z2_memory_01",
+      "type": "story",
+      "lines": [
+        "A projection hangs in the air. A scene from before the Reach was fractured.",
+        "Green fields. A farmhouse. Children running through wheat.",
+        "The image stutters, repeats, decays — but will not die."
+      ],
+      "background": "echo_chamber_01",
+      "next": "z2_memory_choice_01"
+    },
+    {
+      "id": "z2_memory_choice_01",
+      "type": "choice",
+      "lines": [
+        "The memory reaches toward you. Not threatening. Pleading.",
+        "It wants to be remembered. It wants to be real again."
+      ],
+      "background": "echo_chamber_01",
+      "buttons": [
+        { "label": "Reach Back", "next": "z2_memory_reach_01" },
+        { "label": "Observe Quietly", "next": "z2_memory_observe_01" },
+        { "label": "Turn Away", "next": "z2_memory_away_01" }
+      ]
+    },
+    {
+      "id": "z2_memory_reach_01",
+      "type": "story",
+      "lines": [
+        "Your fingers touch the light.",
+        "For one breath, you are there — warm sun, the smell of bread, laughter.",
+        "Then it collapses. But it leaves something behind."
+      ],
+      "background": "echo_chamber_01",
+      "next": "z2_memory_discovery_01"
+    },
+    {
+      "id": "z2_memory_discovery_01",
+      "type": "discovery",
+      "lines": [
+        "The memory crystallizes into tangible shapes.",
+        "Gifts from a world that no longer exists.",
+        "Each one warm to the touch."
+      ],
+      "background": "echo_chamber_01",
+      "offers": ["magic_restore", "melee_guard", "hazard_sharp_instinct"],
+      "count": 1,
+      "next": "z2_memory_02"
+    },
+    {
+      "id": "z2_memory_observe_01",
+      "type": "story",
+      "lines": [
+        "You sit and watch the memory play.",
+        "The children run. The wheat sways. The sun sets and rises.",
+        "It is enough to witness. The ache in your chest eases."
+      ],
+      "background": "echo_chamber_01",
+      "heal": 3,
+      "next": "z2_memory_02"
+    },
+    {
+      "id": "z2_memory_away_01",
+      "type": "story",
+      "lines": [
+        "You look away. Some things are too tender to hold.",
+        "The projection flickers once more — then folds into nothing.",
+        "The space where it was feels colder."
+      ],
+      "background": "echo_chamber_01",
+      "next": "z2_memory_02"
+    },
+    {
+      "id": "z2_memory_02",
+      "type": "story",
+      "lines": [
+        "The road picks up again. Steel beneath moss.",
+        "The memory is gone, but the warmth lingers.",
+        "Ahead, the Reach deepens."
+      ],
+      "background": "fractured_sky_01",
+      "next": "z2_anchor_04"
+    },
+
+    { "_comment": "=== ENCOUNTER: SHELTER ===" },
+
+    {
+      "id": "z2_shelter_01",
+      "type": "story",
+      "lines": [
+        "A half-buried structure offers refuge from the glitching sky.",
+        "Inside, the walls are smooth metal. Warm. Humming softly.",
+        "You rest against the wall and let it hold you."
+      ],
+      "background": "metal_ruins_01",
+      "heal": 5,
+      "next": "z2_anchor_04"
+    },
+
+    { "_comment": "=== ZONE 2 ANCHOR 2 ===" },
+
+    {
+      "id": "z2_anchor_04",
+      "type": "story",
+      "lines": [
+        "The landscape has fully changed.",
+        "What looked like rolling hills is a buried city. Moss covers steel plating.",
+        "Every footstep rings hollow against the world beneath the world."
+      ],
+      "background": "metal_ruins_01",
+      "next": "z2_anchor_05"
+    },
+    {
+      "id": "z2_anchor_05",
+      "type": "story",
+      "lines": [
+        "The narrator speaks, but their words arrive out of order.",
+        "\"Ahead — the warden — you must — I cannot see past —\"",
+        "They reassemble. \"Forgive me. The Reach interferes.\""
+      ],
+      "background": "metal_ruins_01",
+      "next": "z2_random_pool_03"
+    },
+
+    { "_comment": "=== ZONE 2 RANDOM POOL 3 ===" },
+
+    {
+      "id": "z2_random_pool_03",
+      "type": "random_pool",
+      "description": "Final random encounters before the boss in The Fractured Reach",
+      "pool": [
+        { "nodeId": "z2_sentry_01", "weight": 3 },
+        { "nodeId": "z2_bridge_01", "weight": 2 },
+        { "nodeId": "z2_cache_01", "weight": 2 }
+      ]
+    },
+
+    { "_comment": "=== ENCOUNTER: SENTRY ===" },
+
+    {
+      "id": "z2_sentry_01",
+      "type": "story",
+      "lines": [
+        "It drops from the fractured sky on cables of light.",
+        "Larger than the automaton. Purpose-built. Still following orders.",
+        "A single red lens focuses on you. Targeting."
+      ],
+      "background": "metal_ruins_01",
+      "next": "z2_sentry_hazard_01"
+    },
+    {
+      "id": "z2_sentry_hazard_01",
+      "type": "hazard",
+      "lines": [
+        "The sentry's chassis unfolds — weapon arrays extending from its core.",
+        "A targeting beam paints your chest.",
+        "You have seconds."
+      ],
+      "background": "metal_ruins_01",
+      "hazard": {
+        "name": "Warden Sentry",
+        "image": "metal_ruins_01",
+        "difficulty": 6,
+        "damage": 10,
+        "relevantCards": ["melee", "hazard_assist"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z2_sentry_flee_01" }
+      ],
+      "outcomes": {
+        "success": "z2_sentry_success_01",
+        "failure": "z2_sentry_fail_01"
+      }
+    },
+    {
+      "id": "z2_sentry_success_01",
+      "type": "story",
+      "lines": [
+        "You move before it fires.",
+        "The blast scorches the ground where you stood. You close the distance.",
+        "One strike to its lens. The red light dies."
+      ],
+      "background": "metal_ruins_01",
+      "next": "z2_sentry_discovery_01"
+    },
+    {
+      "id": "z2_sentry_discovery_01",
+      "type": "discovery",
+      "lines": [
+        "The sentry's core is intact. Military-grade components.",
+        "Designed for a war that never happened. Or hasn't yet.",
+        "You salvage what you can."
+      ],
+      "background": "metal_ruins_01",
+      "offers": ["melee_last_stand", "hazard_glimpse", "magic_unravel"],
+      "count": 1,
+      "next": "z2_anchor_06"
+    },
+    {
+      "id": "z2_sentry_fail_01",
+      "type": "story",
+      "lines": [
+        "The blast catches your side.",
+        "Heat. Force. The world tilts.",
+        "When the ringing stops, the sentry is retracting skyward. Target processed."
+      ],
+      "background": "metal_ruins_01",
+      "damage": 10,
+      "next": "z2_anchor_06"
+    },
+    {
+      "id": "z2_sentry_flee_01",
+      "type": "story",
+      "lines": [
+        "You throw yourself behind a collapsed wall.",
+        "The beam tracks across the rubble, searching.",
+        "After a long minute, the sentry ascends. Patrol continues."
+      ],
+      "background": "metal_ruins_01",
+      "next": "z2_anchor_06"
+    },
+
+    { "_comment": "=== ENCOUNTER: BRIDGE ===" },
+
+    {
+      "id": "z2_bridge_01",
+      "type": "story",
+      "lines": [
+        "A bridge of solid light spans a chasm that was not there yesterday.",
+        "Below, machinery grinds in the dark — gears the size of houses.",
+        "The bridge flickers. It is not certain it wants to exist."
+      ],
+      "background": "bridge_light_01",
+      "next": "z2_bridge_hazard_01"
+    },
+    {
+      "id": "z2_bridge_hazard_01",
+      "type": "hazard",
+      "lines": [
+        "The bridge destabilizes as you step onto it.",
+        "Sections blink out of existence, then return. Or don't.",
+        "The chasm below yawns. The machinery calls."
+      ],
+      "background": "bridge_light_01",
+      "hazard": {
+        "name": "Light Bridge",
+        "image": "bridge_light_01",
+        "difficulty": 7,
+        "damage": 12,
+        "relevantCards": ["hazard_assist", "magic"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z2_bridge_flee_01" }
+      ],
+      "outcomes": {
+        "success": "z2_bridge_success_01",
+        "failure": "z2_bridge_fail_01"
+      }
+    },
+    {
+      "id": "z2_bridge_success_01",
+      "type": "story",
+      "lines": [
+        "You sprint. Each footfall lands on light that solidifies just in time.",
+        "The far side arrives like a miracle.",
+        "Behind you, the bridge collapses into the dark."
+      ],
+      "background": "bridge_light_01",
+      "next": "z2_anchor_06"
+    },
+    {
+      "id": "z2_bridge_fail_01",
+      "type": "story",
+      "lines": [
+        "The bridge vanishes beneath you.",
+        "You fall. Machinery catches you — gears grinding, cables snapping taut.",
+        "You climb out broken but breathing."
+      ],
+      "background": "bridge_light_01",
+      "damage": 12,
+      "next": "z2_anchor_06"
+    },
+    {
+      "id": "z2_bridge_flee_01",
+      "type": "story",
+      "lines": [
+        "You step back from the flickering edge.",
+        "The bridge hums, offended. Then dims.",
+        "Another path. There must be another path."
+      ],
+      "background": "bridge_light_01",
+      "next": "z2_anchor_06"
+    },
+
+    { "_comment": "=== ENCOUNTER: CACHE ===" },
+
+    {
+      "id": "z2_cache_01",
+      "type": "story",
+      "lines": [
+        "Half-buried in the hillside, a sealed vault door stands ajar.",
+        "Inside, rows of storage units. Most destroyed.",
+        "But one still glows — waiting for someone with hands to open it."
+      ],
+      "background": "metal_ruins_01",
+      "next": "z2_cache_discovery_01"
+    },
+    {
+      "id": "z2_cache_discovery_01",
+      "type": "discovery",
+      "lines": [
+        "The storage unit opens with a hiss of stale air.",
+        "Inside, preserved equipment from the age before the fracture.",
+        "You choose carefully."
+      ],
+      "background": "metal_ruins_01",
+      "offers": ["melee_last_stand", "hazard_glimpse", "magic_unravel"],
+      "count": 1,
+      "next": "z2_cache_02"
+    },
+    {
+      "id": "z2_cache_02",
+      "type": "story",
+      "lines": [
+        "You seal the vault behind you. What remains is not yours to take.",
+        "The hillside closes over the door like a mouth swallowing a secret.",
+        "The road leads on toward something massive on the horizon."
+      ],
+      "background": "metal_ruins_01",
+      "next": "z2_anchor_06"
+    },
+
+    { "_comment": "=== ZONE 2 ANCHOR 3 — WARDEN'S DOMAIN ===" },
+
+    {
+      "id": "z2_anchor_06",
+      "type": "story",
+      "lines": [
+        "The landscape narrows into a corridor of fused metal and living stone.",
+        "The walls pulse with bioluminescent veins. Something organic wrapped around something industrial.",
+        "This is not a place. It is a threshold."
+      ],
+      "background": "warden_domain_01",
+      "next": "z2_anchor_07"
+    },
+    {
+      "id": "z2_anchor_07",
+      "type": "story",
+      "lines": [
+        "The narrator hesitates.",
+        "\"I have told this story before. It does not always end the same way.\"",
+        "\"The warden is not like the Guardian. The warden was made. On purpose.\""
+      ],
+      "background": "warden_domain_01",
+      "next": "z2_anchor_08"
+    },
+    {
+      "id": "z2_anchor_08",
+      "type": "story",
+      "lines": [
+        "The corridor opens into a vast chamber.",
+        "The ceiling is the sky — or what used to be the sky, now threaded with cables and light.",
+        "At the center, something waits. It has been counting your steps."
+      ],
+      "background": "warden_domain_01",
+      "next": "z2_boss_01"
+    },
+
+    { "_comment": "=== ZONE 2 BOSS ===" },
+
+    {
+      "id": "z2_boss_01",
+      "type": "story",
+      "lines": [
+        "The Warden unfolds from the architecture itself.",
+        "Half machine, half something older. Cables for sinew. Light for blood.",
+        "Its voice is the sound of data processing at the speed of thought."
+      ],
+      "background": "warden_domain_01",
+      "next": "z2_boss_hazard_01"
+    },
+    {
+      "id": "z2_boss_hazard_01",
+      "type": "hazard",
+      "lines": [
+        "\"You are an anomaly,\" it says. \"Anomalies are corrected.\"",
+        "The chamber reconfigures around you — walls closing, floor tilting.",
+        "The Warden does not attack. It rearranges reality until you no longer fit."
+      ],
+      "background": "warden_domain_01",
+      "hazard": {
+        "name": "The Warden",
+        "image": "warden_domain_01",
+        "difficulty": 7,
+        "damage": 12,
+        "relevantCards": ["melee", "hazard_assist", "magic"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z2_boss_flee_01" }
+      ],
+      "outcomes": {
+        "success": "z2_boss_success_01",
+        "failure": "z2_boss_fail_01"
+      }
+    },
+    {
+      "id": "z2_boss_success_01",
+      "type": "story",
+      "lines": [
+        "You refuse to be corrected.",
+        "You are the anomaly, and the anomaly persists.",
+        "The Warden's light flickers. Its voice distorts. \"Anomaly... accepted.\""
+      ],
+      "background": "warden_domain_01",
+      "next": "z2_boss_discovery_01"
+    },
+    {
+      "id": "z2_boss_discovery_01",
+      "type": "discovery",
+      "lines": [
+        "The Warden's core fractures open.",
+        "Inside — tools from the boundary between ages.",
+        "Each one hums with the power of a world rewriting itself."
+      ],
+      "background": "warden_domain_01",
+      "offers": ["melee_overload", "hazard_scan", "magic_surge"],
+      "count": 1,
+      "next": "z2_ending_01"
+    },
+    {
+      "id": "z2_boss_fail_01",
+      "type": "story",
+      "lines": [
+        "Reality folds around you like a closing fist.",
+        "The impact is not physical — it is existential. You feel yourself edited.",
+        "But you are still here. Damaged, but present. The Warden recalculates."
+      ],
+      "background": "warden_domain_01",
+      "damage": 12,
+      "next": "z2_boss_01"
+    },
+    {
+      "id": "z2_boss_flee_01",
+      "type": "story",
+      "lines": [
+        "You turn to run. The corridor seals behind you.",
+        "The Warden's voice follows. \"There is no exit that I have not designed.\"",
+        "The chamber resets. You are back where you started."
+      ],
+      "background": "warden_domain_01",
+      "next": "z2_boss_01"
+    },
+
+    { "_comment": "=== ZONE 2 ENDING — TRANSITION TO ZONE 3 ===" },
+
+    {
+      "id": "z2_ending_01",
+      "type": "story",
+      "lines": [
+        "The chamber dissolves around you.",
+        "Where the Warden stood, a door opens onto a landscape you do not recognize.",
+        "The fractures in the sky have multiplied. They are no longer cracks — they are windows."
+      ],
+      "background": "zone_transition_01",
+      "next": "z2_ending_02"
+    },
+    {
+      "id": "z2_ending_02",
+      "type": "story",
+      "lines": [
+        "The narrator sets down their cards.",
+        "\"The Fractured Reach is behind you. What comes next has no name.\"",
+        "\"I will try to tell it. But the words — the words may not be mine.\""
+      ],
+      "background": "zone_transition_01",
+      "next": "z2_ending_03"
+    },
+    {
+      "id": "z2_ending_03",
+      "type": "story",
+      "lines": [
+        "The road ahead is not a road.",
+        "It is a thread of coherent reality stretched across an abyss of static and starlight.",
+        "You step forward. The story follows, barely."
+      ],
+      "background": "zone_transition_01",
+      "next": "z3_start_01"
+    },
+
+    { "_comment": "=== ZONE 3: THE UNRAVELING — OPENING ===" },
+
+    {
+      "id": "z3_start_01",
+      "type": "story",
+      "zone": 2,
+      "heal": 5,
+      "lines": [
+        "The thread of reality deposits you somewhere.",
+        "The ground breathes. The sky has teeth. Distance does not work right here.",
+        "The narrator's voice cracks mid-sentence."
+      ],
+      "background": "void_01",
+      "next": "z3_start_02"
+    },
+    {
+      "id": "z3_start_02",
+      "type": "story",
+      "lines": [
+        "\"I have never been this far.\"",
+        "\"The story is writing itself now. I am just — trying to keep up.\"",
+        "\"I will do my best.\""
+      ],
+      "background": "void_02",
+      "next": "z3_start_03"
+    },
+    {
+      "id": "z3_start_03",
+      "type": "story",
+      "lines": [
+        "Three disturbances in reality ahead.",
+        "Each one wrong in a different way.",
+        "You will have to choose."
+      ],
+      "background": "void_03",
+      "next": "z3_choice_01"
+    },
+
+    { "_comment": "=== ZONE 3 CHOICE ===" },
+
+    {
+      "id": "z3_choice_01",
+      "type": "choice",
+      "lines": [
+        "The path splits into three kinds of wrongness.",
+        "A pocket of nothing. A sound that should not exist. A place where even the wrongness stops."
+      ],
+      "background": "void_04",
+      "buttons": [
+        { "label": "The Void Pocket", "next": "z3_void_pocket" },
+        { "label": "The Whispering", "next": "z3_whispering" },
+        { "label": "The Stillness", "next": "z3_stillness" }
+      ]
+    },
+
+    { "_comment": "=== BRANCH A: VOID POCKET ===" },
+
+    {
+      "id": "z3_void_pocket",
+      "type": "hazard",
+      "lines": [
+        "A hole in everything.",
+        "Not darkness — absence. The space where a thing used to be.",
+        "It pulls at you. Not gravity. Hunger."
+      ],
+      "background": "void_05",
+      "hazard": {
+        "name": "The Void Pocket",
+        "image": "void_05",
+        "difficulty": 6,
+        "damage": 10,
+        "relevantCards": ["hazard_assist", "magic"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z3_void_pocket_flee" }
+      ],
+      "outcomes": {
+        "success": "z3_void_pocket_success",
+        "failure": "z3_void_pocket_fail"
+      }
+    },
+    {
+      "id": "z3_void_pocket_success",
+      "type": "story",
+      "lines": [
+        "You pass through the absence.",
+        "Something of you stays behind. You do not notice what."
+      ],
+      "background": "void_05",
+      "next": "z3_pool_01"
+    },
+    {
+      "id": "z3_void_pocket_fail",
+      "type": "story",
+      "lines": [
+        "The absence takes a piece of you.",
+        "You feel lighter. Not in a good way."
+      ],
+      "background": "void_05",
+      "next": "z3_pool_01"
+    },
+    {
+      "id": "z3_void_pocket_flee",
+      "type": "story",
+      "lines": [
+        "You pull yourself back from the edge of nothing.",
+        "The nothing follows, briefly. Then forgets you."
+      ],
+      "background": "void_04",
+      "next": "z3_pool_01"
+    },
+
+    { "_comment": "=== BRANCH B: WHISPERING ===" },
+
+    {
+      "id": "z3_whispering",
+      "type": "hazard",
+      "lines": [
+        "A sound at the edge of hearing.",
+        "Not words. The shapes that words are made from.",
+        "It knows your name. It is saying it backwards."
+      ],
+      "background": "void_06",
+      "hazard": {
+        "name": "The Whispering",
+        "image": "void_06",
+        "difficulty": 5,
+        "damage": 8,
+        "relevantCards": ["melee", "magic"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z3_whispering_flee" }
+      ],
+      "outcomes": {
+        "success": "z3_whispering_success",
+        "failure": "z3_whispering_fail"
+      }
+    },
+    {
+      "id": "z3_whispering_success",
+      "type": "story",
+      "lines": [
+        "You speak your own name louder than it can unmake it.",
+        "The whispering folds in on itself and goes quiet."
+      ],
+      "background": "void_06",
+      "next": "z3_pool_01"
+    },
+    {
+      "id": "z3_whispering_fail",
+      "type": "story",
+      "lines": [
+        "It finishes saying your name.",
+        "Something inside you answers."
+      ],
+      "background": "void_06",
+      "next": "z3_pool_01"
+    },
+    {
+      "id": "z3_whispering_flee",
+      "type": "story",
+      "lines": [
+        "You cover your ears. It does not help.",
+        "But eventually the sound moves on. It finds another name."
+      ],
+      "background": "void_04",
+      "next": "z3_pool_01"
+    },
+
+    { "_comment": "=== BRANCH C: STILLNESS ===" },
+
+    {
+      "id": "z3_stillness",
+      "type": "story",
+      "heal": 4,
+      "lines": [
+        "Nothing moves here. Nothing at all.",
+        "The narrator pauses. \"This place should not exist. But it does.\"",
+        "\"Rest. While the story forgets to look.\""
+      ],
+      "background": "void_01",
+      "next": "z3_pool_01"
+    },
+
+    { "_comment": "=== ZONE 3 RANDOM POOL 1 ===" },
+
+    {
+      "id": "z3_pool_01",
+      "type": "random_pool",
+      "description": "Mid-zone random encounters for The Unraveling",
+      "pool": [
+        { "nodeId": "z3_enc_unshape", "weight": 2 },
+        { "nodeId": "z3_enc_fold", "weight": 2 },
+        { "nodeId": "z3_enc_teeth", "weight": 2 },
+        { "nodeId": "z3_enc_remnant", "weight": 2 },
+        { "nodeId": "z3_enc_eye", "weight": 2 }
+      ],
+      "count": 3,
+      "then": "z3_anchor_01"
+    },
+
+    { "_comment": "=== ENCOUNTER: THE UNSHAPE ===" },
+
+    {
+      "id": "z3_enc_unshape",
+      "type": "hazard",
+      "lines": [
+        "It has no fixed form.",
+        "Each time you look it is something else. Limbs. Wings. Teeth. Nothing.",
+        "It moves toward you in every shape at once."
+      ],
+      "background": "void_02",
+      "hazard": {
+        "name": "The Unshape",
+        "image": "void_02",
+        "difficulty": 7,
+        "damage": 12,
+        "relevantCards": ["melee", "hazard_assist"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z3_enc_unshape_flee" }
+      ],
+      "outcomes": {
+        "success": "z3_enc_unshape_success",
+        "failure": "z3_enc_unshape_fail"
+      }
+    },
+    {
+      "id": "z3_enc_unshape_success",
+      "type": "story",
+      "lines": [
+        "You strike the shape it will be next.",
+        "It collapses into a form that cannot hold itself."
+      ],
+      "background": "void_02",
+      "next": "z3_pool_01"
+    },
+    {
+      "id": "z3_enc_unshape_fail",
+      "type": "story",
+      "lines": [
+        "It becomes something with edges.",
+        "The edges find you."
+      ],
+      "background": "void_02",
+      "next": "z3_pool_01"
+    },
+    {
+      "id": "z3_enc_unshape_flee",
+      "type": "story",
+      "lines": [
+        "You run from a shape that keeps changing.",
+        "Eventually it forgets what chasing is."
+      ],
+      "background": "void_01",
+      "next": "z3_pool_01"
+    },
+
+    { "_comment": "=== ENCOUNTER: THE FOLD ===" },
+
+    {
+      "id": "z3_enc_fold",
+      "type": "hazard",
+      "lines": [
+        "Space doubles back on itself.",
+        "You see your own back. You are walking toward yourself.",
+        "The corridor has no end because it has no direction."
+      ],
+      "background": "void_03",
+      "hazard": {
+        "name": "The Fold",
+        "image": "void_03",
+        "difficulty": 6,
+        "damage": 10,
+        "relevantCards": ["hazard_assist", "magic"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z3_enc_fold_flee" }
+      ],
+      "outcomes": {
+        "success": "z3_enc_fold_success",
+        "failure": "z3_enc_fold_fail"
+      }
+    },
+    {
+      "id": "z3_enc_fold_success",
+      "type": "story",
+      "lines": [
+        "You close your eyes and walk sideways.",
+        "Space unfolds. You are through."
+      ],
+      "background": "void_03",
+      "next": "z3_pool_01"
+    },
+    {
+      "id": "z3_enc_fold_fail",
+      "type": "story",
+      "lines": [
+        "You collide with yourself.",
+        "The impact is not physical. It is temporal."
+      ],
+      "background": "void_03",
+      "next": "z3_pool_01"
+    },
+    {
+      "id": "z3_enc_fold_flee",
+      "type": "story",
+      "lines": [
+        "You turn and run but the fold turns with you.",
+        "Eventually you stumble out the side of it."
+      ],
+      "background": "void_01",
+      "next": "z3_pool_01"
+    },
+
+    { "_comment": "=== ENCOUNTER: THE TEETH ===" },
+
+    {
+      "id": "z3_enc_teeth",
+      "type": "hazard",
+      "lines": [
+        "The darkness has teeth.",
+        "Not metaphor. Actual teeth, embedded in the black.",
+        "They are smiling."
+      ],
+      "background": "void_04",
+      "hazard": {
+        "name": "The Teeth",
+        "image": "void_04",
+        "difficulty": 8,
+        "damage": 14,
+        "relevantCards": ["melee", "magic"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z3_enc_teeth_flee" }
+      ],
+      "outcomes": {
+        "success": "z3_enc_teeth_success",
+        "failure": "z3_enc_teeth_fail"
+      }
+    },
+    {
+      "id": "z3_enc_teeth_success",
+      "type": "story",
+      "lines": [
+        "You shatter the smile.",
+        "The teeth fall into the dark like stars going out."
+      ],
+      "background": "void_04",
+      "next": "z3_pool_01"
+    },
+    {
+      "id": "z3_enc_teeth_fail",
+      "type": "story",
+      "lines": [
+        "The darkness bites.",
+        "You did not know darkness could bite."
+      ],
+      "background": "void_04",
+      "next": "z3_pool_01"
+    },
+    {
+      "id": "z3_enc_teeth_flee",
+      "type": "story",
+      "lines": [
+        "You run from the grin in the dark.",
+        "The grin does not follow. It does not need to. It is everywhere."
+      ],
+      "background": "void_01",
+      "next": "z3_pool_01"
+    },
+
+    { "_comment": "=== ENCOUNTER: THE REMNANT ===" },
+
+    {
+      "id": "z3_enc_remnant",
+      "type": "hazard",
+      "lines": [
+        "An echo of someone.",
+        "It wears a face that might have been human once.",
+        "It reaches for you. Not to attack. To remember."
+      ],
+      "background": "void_05",
+      "hazard": {
+        "name": "The Remnant",
+        "image": "void_05",
+        "difficulty": 5,
+        "damage": 8,
+        "relevantCards": ["melee", "hazard_assist"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z3_enc_remnant_flee" }
+      ],
+      "outcomes": {
+        "success": "z3_enc_remnant_success",
+        "failure": "z3_enc_remnant_fail"
+      }
+    },
+    {
+      "id": "z3_enc_remnant_success",
+      "type": "story",
+      "lines": [
+        "You give it a name. Any name.",
+        "It smiles. It dissolves. It was waiting for that."
+      ],
+      "background": "void_05",
+      "next": "z3_pool_01"
+    },
+    {
+      "id": "z3_enc_remnant_fail",
+      "type": "story",
+      "lines": [
+        "It touches you and you feel what it felt.",
+        "Forgetting. The slow erosion of self."
+      ],
+      "background": "void_05",
+      "next": "z3_pool_01"
+    },
+    {
+      "id": "z3_enc_remnant_flee",
+      "type": "story",
+      "lines": [
+        "You pull away from its reaching hand.",
+        "It stands there. Still reaching. It will reach forever."
+      ],
+      "background": "void_01",
+      "next": "z3_pool_01"
+    },
+
+    { "_comment": "=== ENCOUNTER: THE EYE ===" },
+
+    {
+      "id": "z3_enc_eye",
+      "type": "hazard",
+      "lines": [
+        "An eye.",
+        "Not in a face. Just an eye, floating in the static.",
+        "It sees you. You see it. You cannot unsee."
+      ],
+      "background": "void_06",
+      "hazard": {
+        "name": "The Eye",
+        "image": "void_06",
+        "difficulty": 7,
+        "damage": 10,
+        "relevantCards": ["hazard_assist", "magic"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z3_enc_eye_flee" }
+      ],
+      "outcomes": {
+        "success": "z3_enc_eye_success",
+        "failure": "z3_enc_eye_fail"
+      }
+    },
+    {
+      "id": "z3_enc_eye_success",
+      "type": "story",
+      "lines": [
+        "You stare back. You do not blink.",
+        "The eye looks away first."
+      ],
+      "background": "void_06",
+      "next": "z3_pool_01"
+    },
+    {
+      "id": "z3_enc_eye_fail",
+      "type": "story",
+      "lines": [
+        "It blinks. And in the blink, you see everything.",
+        "Everything is too much."
+      ],
+      "background": "void_06",
+      "next": "z3_pool_01"
+    },
+    {
+      "id": "z3_enc_eye_flee",
+      "type": "story",
+      "lines": [
+        "You close your eyes and run.",
+        "But you can still see it. Behind your eyelids. Always."
+      ],
+      "background": "void_01",
+      "next": "z3_pool_01"
+    },
+
+    { "_comment": "=== ZONE 3 ANCHOR 1 ===" },
+
+    {
+      "id": "z3_anchor_01",
+      "type": "story",
+      "lines": [
+        "The narrator drops something. A word. A card. You cannot tell.",
+        "\"I'm sorry. I'm losing the thread.\"",
+        "\"The story — it's pulling at me too.\""
+      ],
+      "background": "void_02",
+      "next": "z3_anchor_02"
+    },
+    {
+      "id": "z3_anchor_02",
+      "type": "story",
+      "lines": [
+        "You realize it now.",
+        "The narrator is part of the story. They are not outside it.",
+        "They never were."
+      ],
+      "background": "void_03",
+      "next": "z3_anchor_03"
+    },
+    {
+      "id": "z3_anchor_03",
+      "type": "story",
+      "lines": [
+        "The path narrows.",
+        "Not the road. The story itself. Fewer words. Shorter sentences.",
+        "Less room for anything but forward."
+      ],
+      "background": "void_04",
+      "next": "z3_pool_02"
+    },
+
+    { "_comment": "=== ZONE 3 RANDOM POOL 2 ===" },
+
+    {
+      "id": "z3_pool_02",
+      "type": "random_pool",
+      "description": "Late-zone encounters for The Unraveling",
+      "pool": [
+        { "nodeId": "z3_enc_hunger", "weight": 2 },
+        { "nodeId": "z3_enc_mirror", "weight": 2 },
+        { "nodeId": "z3_enc_silence", "weight": 2 }
+      ],
+      "count": 2,
+      "then": "z3_anchor_04"
+    },
+
+    { "_comment": "=== ENCOUNTER: THE HUNGER ===" },
+
+    {
+      "id": "z3_enc_hunger",
+      "type": "hazard",
+      "lines": [
+        "It does not chase.",
+        "It waits. It has always been waiting.",
+        "You walked into its mouth the moment you arrived."
+      ],
+      "background": "void_05",
+      "hazard": {
+        "name": "The Hunger",
+        "image": "void_05",
+        "difficulty": 8,
+        "damage": 14,
+        "relevantCards": ["melee", "magic"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z3_enc_hunger_flee" }
+      ],
+      "outcomes": {
+        "success": "z3_enc_hunger_success",
+        "failure": "z3_enc_hunger_fail"
+      }
+    },
+    {
+      "id": "z3_enc_hunger_success",
+      "type": "story",
+      "lines": [
+        "You feed it something it cannot digest.",
+        "Hope, maybe. Or spite. It chokes."
+      ],
+      "background": "void_05",
+      "next": "z3_pool_02"
+    },
+    {
+      "id": "z3_enc_hunger_fail",
+      "type": "story",
+      "lines": [
+        "It swallows a piece of your story.",
+        "You can no longer remember your third birthday."
+      ],
+      "background": "void_05",
+      "next": "z3_pool_02"
+    },
+    {
+      "id": "z3_enc_hunger_flee",
+      "type": "story",
+      "lines": [
+        "You cannot flee what you are already inside.",
+        "But you find an edge. You squeeze through."
+      ],
+      "background": "void_01",
+      "next": "z3_pool_02"
+    },
+
+    { "_comment": "=== ENCOUNTER: THE MIRROR ===" },
+
+    {
+      "id": "z3_enc_mirror",
+      "type": "hazard",
+      "lines": [
+        "You see yourself.",
+        "Not a reflection. Another you. Same scars. Same exhaustion.",
+        "It raises its weapon the same moment you do."
+      ],
+      "background": "void_06",
+      "hazard": {
+        "name": "The Mirror",
+        "image": "void_06",
+        "difficulty": 7,
+        "damage": 12,
+        "relevantCards": ["melee", "hazard_assist"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z3_enc_mirror_flee" }
+      ],
+      "outcomes": {
+        "success": "z3_enc_mirror_success",
+        "failure": "z3_enc_mirror_fail"
+      }
+    },
+    {
+      "id": "z3_enc_mirror_success",
+      "type": "story",
+      "lines": [
+        "You do the one thing it cannot mirror.",
+        "You stop fighting."
+      ],
+      "background": "void_06",
+      "next": "z3_pool_02"
+    },
+    {
+      "id": "z3_enc_mirror_fail",
+      "type": "story",
+      "lines": [
+        "You hit yourself. It hits you.",
+        "You are both worse for it."
+      ],
+      "background": "void_06",
+      "next": "z3_pool_02"
+    },
+    {
+      "id": "z3_enc_mirror_flee",
+      "type": "story",
+      "lines": [
+        "You turn away from yourself.",
+        "The other you does the same. Walking in opposite directions forever."
+      ],
+      "background": "void_01",
+      "next": "z3_pool_02"
+    },
+
+    { "_comment": "=== ENCOUNTER: THE SILENCE ===" },
+
+    {
+      "id": "z3_enc_silence",
+      "type": "hazard",
+      "lines": [
+        "Everything stops.",
+        "The wind. The static. Your heartbeat.",
+        "Silence so total it has weight."
+      ],
+      "background": "void_01",
+      "hazard": {
+        "name": "The Silence",
+        "image": "void_01",
+        "difficulty": 9,
+        "damage": 16,
+        "relevantCards": ["hazard_assist", "magic"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z3_enc_silence_flee" }
+      ],
+      "outcomes": {
+        "success": "z3_enc_silence_success",
+        "failure": "z3_enc_silence_fail"
+      }
+    },
+    {
+      "id": "z3_enc_silence_success",
+      "type": "story",
+      "lines": [
+        "You scream. Not in fear. In defiance.",
+        "Sound returns. The silence shatters like glass."
+      ],
+      "background": "void_01",
+      "next": "z3_pool_02"
+    },
+    {
+      "id": "z3_enc_silence_fail",
+      "type": "story",
+      "lines": [
+        "The silence presses in.",
+        "You forget the sound of your own voice."
+      ],
+      "background": "void_01",
+      "next": "z3_pool_02"
+    },
+    {
+      "id": "z3_enc_silence_flee",
+      "type": "story",
+      "lines": [
+        "You run until you can hear your own footsteps again.",
+        "It takes longer than it should."
+      ],
+      "background": "void_02",
+      "next": "z3_pool_02"
+    },
+
+    { "_comment": "=== ZONE 3 ANCHOR 2 ===" },
+
+    {
+      "id": "z3_anchor_04",
+      "type": "story",
+      "lines": [
+        "The narrator speaks carefully. Each word costs something.",
+        "\"There is one thing left. At the end of the story.\"",
+        "\"It has no name. It was here before the story began.\""
+      ],
+      "background": "void_03",
+      "next": "z3_anchor_05"
+    },
+    {
+      "id": "z3_anchor_05",
+      "type": "story",
+      "lines": [
+        "\"I cannot go with you.\"",
+        "\"But I will be here when you come back.\"",
+        "\"If you come back.\""
+      ],
+      "background": "void_04",
+      "next": "z3_boss_01"
+    },
+
+    { "_comment": "=== ZONE 3 BOSS: THE UNNAMED ===" },
+
+    {
+      "id": "z3_boss_01",
+      "type": "hazard",
+      "lines": [
+        "The thing at the end of all stories.",
+        "It does not attack. It unmakes.",
+        "It looks at you with nothing. It has no eyes. It does not need them."
+      ],
+      "background": "boss_void",
+      "hazard": {
+        "name": "The Unnamed",
+        "image": "boss_void",
+        "difficulty": 9,
+        "damage": 16,
+        "relevantCards": ["melee", "hazard_assist", "magic"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "z3_boss_flee" }
+      ],
+      "outcomes": {
+        "success": "z3_ending_01",
+        "failure": "z3_boss_fail"
+      }
+    },
+    {
+      "id": "z3_boss_fail",
+      "type": "story",
+      "lines": [
+        "It reaches into you and takes something.",
+        "You do not know what it was until it is gone."
+      ],
+      "background": "boss_void",
+      "next": "z3_boss_01"
+    },
+    {
+      "id": "z3_boss_flee",
+      "type": "story",
+      "lines": [
+        "You run. But reality runs with you.",
+        "There is no direction away from this."
+      ],
+      "background": "boss_void",
+      "next": "z3_boss_01"
+    },
+
+    { "_comment": "=== ZONE 3 ENDING ===" },
+
+    {
+      "id": "z3_ending_01",
+      "type": "story",
+      "lines": [
+        "The Unnamed dissolves.",
+        "Not destroyed. Completed. It was a story too.",
+        "And you finished it."
+      ],
+      "background": "void_01",
+      "next": "z3_ending_02"
+    },
+    {
+      "id": "z3_ending_02",
+      "type": "story",
+      "lines": [
+        "The narrator speaks again. Clearly now. The cracks in their voice are gone.",
+        "\"You did it. You finished the story.\"",
+        "\"Not many do.\""
+      ],
+      "background": "void_02",
+      "next": "z3_ending_03"
+    },
+    {
+      "id": "z3_ending_03",
+      "type": "story",
+      "victory": true,
+      "lines": [
+        "The cards fold themselves. The die stops rolling.",
+        "The story is over.",
+        "Until someone tells it again."
+      ],
+      "background": "void_03"
+    }
+  ]
+}

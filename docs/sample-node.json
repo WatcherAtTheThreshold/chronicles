@@ -1,0 +1,110 @@
+{
+  "nodes": [
+    {
+      "id": "tower_stairs_01",
+      "type": "story",
+      "lines": [
+        "The tower spirals upward",
+        "into a darkness that breathes",
+        "and whispers your name."
+      ],
+      "background": "tower_interior_01",
+      "next": "tower_stairs_02"
+    },
+    {
+      "id": "tower_stairs_02",
+      "type": "story",
+      "lines": [
+        "As you reach the top of the stairwell",
+        "the stairs disintegrate",
+        "and crumble away before you."
+      ],
+      "background": "mushroom_creature_01",
+      "next": "tower_hazard_01"
+    },
+    {
+      "id": "tower_hazard_01",
+      "type": "hazard",
+      "lines": [
+        "Something blocks your path.",
+        "It pulses with a dim red light.",
+        "It does not move. It waits."
+      ],
+      "background": "mushroom_creature_01",
+      "hazard": {
+        "name": "Glow Stalker",
+        "image": "mushroom_creature_01",
+        "difficulty": 4,
+        "damage": 8,
+        "relevantCards": ["hazard_assist", "melee_attack"]
+      },
+      "buttons": [
+        { "label": "Play Card", "action": "play_card" },
+        { "label": "Roll Die", "action": "roll_only" },
+        { "label": "Flee", "action": "flee", "next": "tower_retreat_01" }
+      ],
+      "outcomes": {
+        "success": "tower_discovery_01",
+        "failure": "tower_fall_01"
+      }
+    },
+    {
+      "id": "tower_landing_01",
+      "type": "choice",
+      "lines": [
+        "The creature dissolves into ash.",
+        "Two doorways yawn open before you.",
+        "One glows faintly. One does not."
+      ],
+      "background": "tower_doors_01",
+      "buttons": [
+        { "label": "Glowing Door", "next": "tower_light_path_01" },
+        { "label": "Dark Door", "next": "tower_dark_path_01" },
+        { "label": "Search Room", "next": "tower_search_01" }
+      ]
+    },
+    {
+      "id": "tower_fall_01",
+      "type": "story",
+      "lines": [
+        "The creature strikes.",
+        "You stagger backward",
+        "and taste iron."
+      ],
+      "background": "mushroom_creature_01",
+      "damage": 8,
+      "next": "tower_hazard_01_retry"
+    },
+    {
+      "_comment": "--- DISCOVERY NODE EXAMPLE ---"
+    },
+    {
+      "id": "tower_discovery_01",
+      "type": "discovery",
+      "lines": [
+        "Something glints among the ashes.",
+        "Three shapes, half-buried.",
+        "You can only carry one."
+      ],
+      "background": "tower_interior_01",
+      "offers": ["melee_cleave", "hazard_sharp_instinct", "magic_mend"],
+      "count": 1,
+      "next": "tower_landing_01"
+    },
+    {
+      "_comment": "--- RANDOM ENCOUNTER POOL EXAMPLE ---"
+    },
+    {
+      "id": "forest_random_pool",
+      "type": "random_pool",
+      "description": "Random encounters drawn from when traversing the forest zone",
+      "pool": [
+        { "nodeId": "forest_wolves_01", "weight": 3 },
+        { "nodeId": "forest_shrine_01", "weight": 2 },
+        { "nodeId": "forest_merchant_01", "weight": 1 },
+        { "nodeId": "forest_trap_01", "weight": 3 },
+        { "nodeId": "forest_rest_spot_01", "weight": 1 }
+      ]
+    }
+  ]
+}

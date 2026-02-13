@@ -1,0 +1,860 @@
+/* ================================================================
+   CHRONICLES — STYLES
+   CSS custom properties for theming, 16:9 board layout
+   ================================================================ */
+
+/* --------------------------------
+   1. CSS Custom Properties
+   -------------------------------- */
+:root {
+    /* Base Colors */
+    --bg: #0f0f13;
+    --ink: #e8e6e3;
+    --muted: #9aa0a6;
+    --accent: #6ea7ff;
+    --good: #68d391;
+    --bad: #ef6b73;
+    --warning: #f6d55c;
+
+    /* Card Category Colors */
+    --melee: #c24d3f;
+    --hazard-assist: #3a845a;
+    --magic: #6ea7ff;
+
+    /* Surface Colors */
+    --surface: #141926;
+    --surface-border: #263047;
+    --surface-light: #1e2332;
+    --surface-dark: #0c0e14;
+
+    /* Narrative Panel */
+    --narrative-bg: #0a0c10;
+    --narrative-text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+
+    /* Layout — board is 16:9 with generous padding */
+    --board-width: 1280px;
+    --board-height: 840px;
+    --sidebar-width: 170px;
+    --bottom-tray-height: 320px;
+    --board-padding: 12px;
+    --gap: 6px;
+
+    /* Unified card size — all cards same dimensions */
+    --card-width: 140px;
+    --card-height: 225px;
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius: 8px;
+    --radius-lg: 12px;
+
+    /* Typography */
+    --font-body: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --font-narrative: Georgia, 'Times New Roman', serif;
+    --font-mono: 'SF Mono', Consolas, monospace;
+}
+
+/* --------------------------------
+   2. Reset & Base
+   -------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    margin: 0;
+}
+
+button {
+    font-family: var(--font-body);
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+/* --------------------------------
+   3. Game Container & Scaling
+   -------------------------------- */
+#game {
+    width: var(--board-width);
+    height: var(--board-height);
+    margin: 24px;
+    transform-origin: center center;
+    transition: transform 0.3s ease;
+}
+
+/* Scale to fit viewport — width-based */
+@media (max-width: 1340px)  { #game { transform: scale(0.85); } }
+@media (max-width: 1140px)  { #game { transform: scale(0.75); } }
+@media (max-width: 940px)   { #game { transform: scale(0.65); } }
+@media (max-width: 740px)   { #game { transform: scale(0.55); } }
+
+/* Scale to fit viewport — height-based */
+@media (max-height: 860px)  { #game { transform: scale(0.88); } }
+@media (max-height: 750px)  { #game { transform: scale(0.78); } }
+@media (max-height: 650px)  { #game { transform: scale(0.68); } }
+@media (max-height: 550px)  { #game { transform: scale(0.55); } }
+
+/* Use the smallest scale when both are constrained */
+@media (max-width: 1340px) and (max-height: 860px) {
+    #game { transform: scale(0.82); }
+}
+@media (max-width: 1140px) and (max-height: 750px) {
+    #game { transform: scale(0.68); }
+}
+
+/* Scale up on large displays */
+@media (min-width: 1400px) and (min-height: 920px) { #game { transform: scale(1.05); } }
+@media (min-width: 1600px) and (min-height: 1000px) { #game { transform: scale(1.15); } }
+@media (min-width: 1920px) and (min-height: 1100px) { #game { transform: scale(1.3); } }
+
+/* --------------------------------
+   4. Board Layout
+   -------------------------------- */
+.board {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-rows: 1fr var(--bottom-tray-height);
+    grid-template-areas:
+        "sidebar narrative"
+        "sidebar tray";
+    gap: var(--gap);
+    padding: var(--board-padding);
+    background: var(--surface-dark);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+/* --------------------------------
+   5. Left Sidebar
+   -------------------------------- */
+.sidebar {
+    grid-area: sidebar;
+    background: var(--surface);
+    border-right: 1px solid var(--surface-border);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px;
+    overflow: hidden;
+}
+
+/* Sub-container shared style */
+.sidebar-section {
+    background: var(--surface-dark);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius);
+    padding: 8px;
+}
+
+/* Spacer pushes stats to bottom */
+.sidebar-spacer {
+    flex: 1;
+}
+
+/* -- Narrator Portrait -- */
+.narrator-portrait {
+    text-align: center;
+}
+
+.portrait-frame {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    background: var(--surface-light);
+    border: 2px solid var(--surface-border);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.portrait-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.portrait-placeholder {
+    color: var(--muted);
+    font-size: 0.75rem;
+}
+
+.narrator-name {
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-top: 4px;
+    font-style: italic;
+}
+
+/* -- Draw Pile -- */
+.draw-pile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.draw-card {
+    width: var(--card-width);
+    height: var(--card-height);
+    perspective: 600px;
+    cursor: pointer;
+}
+
+.card-back {
+    width: 100%;
+    height: 100%;
+    background: var(--surface-light);
+    border: 2px solid var(--surface-border);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.draw-card:hover .card-back {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.card-sigil {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--surface-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.draw-count {
+    font-size: 0.6rem;
+    color: var(--muted);
+}
+
+/* -- Draw Buttons -- */
+.draw-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.btn-draw {
+    width: 100%;
+    padding: 8px 6px;
+    font-size: 0.75rem;
+    background: var(--surface-light);
+    color: var(--ink);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-sm);
+    transition: background 0.2s ease;
+}
+
+.btn-draw:hover {
+    background: var(--accent);
+    color: var(--bg);
+}
+
+/* -- Player Stats (at bottom of sidebar) -- */
+.player-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stat-block {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.stat-block .stat-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.stat-bar {
+    height: 8px;
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.stat-bar-fill {
+    height: 100%;
+    border-radius: var(--radius-sm);
+    transition: width 0.4s ease;
+}
+
+.health-fill {
+    background: var(--good);
+    width: 100%;
+}
+
+.attack-fill {
+    background: var(--warning);
+    width: 60%;
+}
+
+.stat-block .stat-value {
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+    color: var(--ink);
+    font-weight: 600;
+}
+
+/* -- Seed Display -- */
+.seed-display {
+    font-size: 0.6rem;
+    color: var(--muted);
+    text-align: center;
+    padding-top: 4px;
+}
+
+.seed-value {
+    color: var(--accent);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.seed-value:hover {
+    opacity: 0.8;
+}
+
+/* --------------------------------
+   6. Narrative Panel (double-nested)
+   -------------------------------- */
+.narrative-outer {
+    grid-area: narrative;
+    background: var(--surface);
+    border-radius: 0 var(--radius-lg) 0 0;
+    padding: 10px;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+}
+
+.narrative-viewport {
+    flex: 1;
+    position: relative;
+    background: var(--narrative-bg);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.narrative-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+    transition: opacity 0.8s ease, background-image 0.8s ease;
+}
+
+.narrative-text {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 30px 40px;
+    max-width: 700px;
+}
+
+.narrative-text p {
+    font-family: var(--font-narrative);
+    font-size: 1.6rem;
+    line-height: 1.8;
+    color: var(--ink);
+    text-shadow: var(--narrative-text-shadow);
+    margin-bottom: 0.3em;
+}
+
+.narrative-text p:last-child {
+    margin-bottom: 0;
+}
+
+/* Narrative line fade-in */
+.narrative-text p.line-hidden {
+    opacity: 0;
+    transform: translateY(6px);
+}
+
+.narrative-text p.line-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+/* --------------------------------
+   7. Bottom Tray
+   -------------------------------- */
+.bottom-tray {
+    grid-area: tray;
+    background: var(--surface);
+    border-top: 1px solid var(--surface-border);
+    border-radius: 0 0 var(--radius-lg) 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+}
+
+/* -- Player Hand -- */
+.hand {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.hand-card {
+    width: var(--card-width);
+    height: var(--card-height);
+    perspective: 600px;
+    cursor: pointer;
+}
+
+.card-face {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hand-card:hover .card-face {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+.hand-card.selected .card-face {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(110, 167, 255, 0.4);
+    border-color: var(--accent);
+}
+
+/* Card flip structure (3D) */
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease;
+}
+
+.card-inner .card-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+}
+
+.card-inner .card-back {
+    z-index: 2;
+}
+
+.card-inner .card-front {
+    transform: rotateY(180deg);
+    z-index: 1;
+}
+
+.card-inner.flipped {
+    transform: rotateY(180deg);
+}
+
+/* Card front (revealed) */
+.card-front {
+    background: var(--surface-light);
+    border: 2px solid var(--surface-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    gap: 4px;
+}
+
+.card-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-align: center;
+}
+
+.card-category {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.card-category.melee { color: var(--melee); }
+.card-category.hazard_assist { color: var(--hazard-assist); }
+.card-category.magic { color: var(--magic); }
+
+.card-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.card-effect {
+    font-size: 0.55rem;
+    color: var(--muted);
+    text-align: center;
+}
+
+/* -- Hazard Viewport (encounter preview, not a card) -- */
+.hazard-viewport {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.hazard-viewport-label {
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.hazard-viewport-frame {
+    width: 170px;
+    height: var(--card-height);
+    background: var(--surface-dark);
+    border: 2px solid var(--surface-border);
+    border-radius: var(--radius);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hazard-viewport-frame.active {
+    border-color: var(--bad);
+    box-shadow: 0 0 12px rgba(239, 107, 115, 0.2);
+}
+
+.hazard-viewport-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.6;
+}
+
+.hazard-viewport-info {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 8px;
+}
+
+.hazard-placeholder {
+    color: var(--muted);
+    font-size: 1.2rem;
+}
+
+.hazard-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.hazard-difficulty {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.hazard-damage {
+    font-size: 0.65rem;
+    color: var(--bad);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* -- Context Buttons -- */
+.context-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-width: 140px;
+    max-width: 200px;
+    justify-content: center;
+}
+
+.btn-context {
+    padding: 14px 16px;
+    font-size: 0.85rem;
+    background: var(--surface-light);
+    color: var(--ink);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-sm);
+    text-align: center;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn-context:hover {
+    background: var(--accent);
+    color: var(--bg);
+    transform: translateY(-1px);
+}
+
+.btn-context:active {
+    transform: translateY(0);
+}
+
+.btn-context.hidden {
+    visibility: hidden;
+}
+
+.btn-context:disabled,
+.btn-draw:disabled {
+    opacity: 0.4;
+    cursor: default;
+    pointer-events: none;
+}
+
+/* -- Die (with container) -- */
+.die-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-dark);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius);
+    padding: 20px;
+    align-self: center;
+    aspect-ratio: 1 / 1;
+    max-height: 160px;
+}
+
+.die {
+    width: 100px;
+    height: 100px;
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    user-select: none;
+}
+
+.die:hover {
+    transform: translateY(-2px) rotate(5deg);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.die:active {
+    transform: translateY(0) rotate(-2deg);
+}
+
+.die-face {
+    font-size: 2.8rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+}
+
+/* Die roll animation */
+.die.rolling {
+    pointer-events: none;
+}
+
+.die.rolling .die-face {
+    animation: dieRollSpin 0.15s ease-in-out infinite alternate;
+}
+
+@keyframes dieRollSpin {
+    0%   { transform: rotate(-12deg) scale(1.05); }
+    100% { transform: rotate(12deg) scale(0.95); }
+}
+
+.die.roll-land {
+    animation: dieLand 0.2s ease-out;
+}
+
+@keyframes dieLand {
+    0%   { transform: scale(1.15) rotate(-5deg); }
+    60%  { transform: scale(0.95) rotate(2deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+/* --------------------------------
+   8. State Modifiers
+   -------------------------------- */
+
+/* Health states */
+.health-fill.critical {
+    background: var(--bad);
+}
+
+.health-fill.low {
+    background: var(--warning);
+}
+
+/* Damage flash on health bar */
+.stat-bar.damage-flash {
+    animation: damageFlash 0.4s ease-out;
+}
+
+@keyframes damageFlash {
+    0%   { box-shadow: 0 0 12px rgba(239, 107, 115, 0.8); }
+    50%  { box-shadow: 0 0 20px rgba(239, 107, 115, 0.6); }
+    100% { box-shadow: none; }
+}
+
+/* Screen shake on damage */
+.board.screen-shake {
+    animation: screenShake 0.3s ease-out;
+}
+
+@keyframes screenShake {
+    0%   { transform: translate(0, 0); }
+    20%  { transform: translate(-3px, 1px); }
+    40%  { transform: translate(3px, -1px); }
+    60%  { transform: translate(-2px, 2px); }
+    80%  { transform: translate(2px, -1px); }
+    100% { transform: translate(0, 0); }
+}
+
+/* Hazard result flash */
+.hazard-viewport-frame.result-success {
+    animation: hazardSuccess 0.6s ease-out;
+}
+
+.hazard-viewport-frame.result-failure {
+    animation: hazardFailure 0.6s ease-out;
+}
+
+@keyframes hazardSuccess {
+    0%   { box-shadow: 0 0 0 rgba(104, 211, 145, 0); border-color: var(--good); }
+    30%  { box-shadow: 0 0 24px rgba(104, 211, 145, 0.6); border-color: var(--good); }
+    100% { box-shadow: none; }
+}
+
+@keyframes hazardFailure {
+    0%   { box-shadow: 0 0 0 rgba(239, 107, 115, 0); border-color: var(--bad); }
+    30%  { box-shadow: 0 0 24px rgba(239, 107, 115, 0.8); border-color: var(--bad); }
+    100% { box-shadow: none; }
+}
+
+/* Interactive button glow — gold outline when clickable */
+.btn-context.interactive {
+    border-color: var(--warning);
+    box-shadow: 0 0 8px rgba(246, 213, 92, 0.25);
+}
+
+.btn-draw.interactive {
+    border-color: var(--warning);
+    box-shadow: 0 0 8px rgba(246, 213, 92, 0.25);
+}
+
+.die.interactive {
+    box-shadow: 0 0 12px rgba(246, 213, 92, 0.3);
+}
+
+/* Card sigil colors */
+.card-sigil.melee { background: var(--melee); }
+.card-sigil.hazard_assist { background: var(--hazard-assist); }
+.card-sigil.magic { background: var(--magic); }
+
+/* --------------------------------
+   9. Context Clue Hints
+   -------------------------------- */
+
+/* Draw pile — "Click to reveal" hint */
+.draw-hint {
+    font-size: 0.6rem;
+    color: var(--accent);
+    text-align: center;
+    margin-top: 2px;
+    opacity: 0.8;
+    animation: hintPulse 2s ease-in-out infinite;
+}
+
+/* Hand card — relevant category glow during hazard */
+.hand-card.relevant .card-face {
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(110, 167, 255, 0.35);
+}
+
+.hand-card.relevant.melee .card-face {
+    border-color: var(--melee);
+    box-shadow: 0 0 10px rgba(194, 77, 63, 0.35);
+}
+
+.hand-card.relevant.hazard_assist .card-face {
+    border-color: var(--hazard-assist);
+    box-shadow: 0 0 10px rgba(58, 132, 90, 0.35);
+}
+
+.hand-card.relevant.magic .card-face {
+    border-color: var(--magic);
+    box-shadow: 0 0 10px rgba(110, 167, 255, 0.35);
+}
+
+/* Empty hand slot — "Draw" nudge */
+.empty-slot-hint {
+    font-size: 0.65rem;
+    color: var(--muted);
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Shared pulse animation */
+@keyframes hintPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* Discovery cards */
+.discovery-offers {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.discovery-card {
+    width: var(--card-width);
+    height: var(--card-height);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.discovery-card:hover {
+    transform: translateY(-6px);
+}
+
+.discovery-card.picked {
+    border-color: var(--good);
+    box-shadow: 0 0 16px rgba(104, 211, 145, 0.4);
+}

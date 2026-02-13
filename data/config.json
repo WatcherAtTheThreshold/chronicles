@@ -1,0 +1,143 @@
+{
+  "_meta": {
+    "version": "0.1",
+    "description": "Run configuration, tuning values, and zone definitions for Chronicles"
+  },
+
+  "player": {
+    "startingHealth": 30,
+    "startingAttack": 15,
+    "handSize": 3
+  },
+
+  "die": {
+    "sides": 6,
+    "display": "d6"
+  },
+
+  "cards": {
+    "startFaceDown": true,
+    "drawPile": {
+      "startingSize": 9,
+      "startingCards": [
+        "melee_strike",
+        "melee_guard",
+        "melee_bash",
+        "hazard_keen_eye",
+        "hazard_steady_hand",
+        "hazard_quick_step",
+        "magic_spark",
+        "magic_mend",
+        "magic_ward"
+      ],
+      "revealShowsBack": true,
+      "redrawsPerTurn": 1
+    },
+    "replenishment": "draw_pile_only",
+    "categories": {
+      "melee": {
+        "label": "Melee",
+        "sigil": "crossed_blades",
+        "color": "#c24d3f",
+        "rollModifier": "adds card value to attack for the encounter"
+      },
+      "hazard_assist": {
+        "label": "Hazard Assist",
+        "sigil": "eye",
+        "color": "#3a845a",
+        "rollModifier": "adds card value to die roll"
+      },
+      "magic": {
+        "label": "Magic",
+        "sigil": "starburst",
+        "color": "#6ea7ff",
+        "rollModifier": "varies by card — heal, attack boost, or difficulty reduction"
+      }
+    },
+    "matchBonus": "full",
+    "mismatchPenalty": "half"
+  },
+
+  "discovery": {
+    "cardsOffered": 3,
+    "cardsPicked": 1,
+    "offeredFaceDown": true,
+    "shuffleIntoPile": true,
+    "healOnSuccess": 3
+  },
+
+  "flee": {
+    "alwaysAvailable": true,
+    "healthCost": 3,
+    "description": "Fleeing always works but costs HP. Skipped encounter does not repeat."
+  },
+
+  "narrator": {
+    "names": {
+      "first": [
+        "Ashwick", "Thornbury", "Vesper", "Cobalt",
+        "Maren", "Dunwick", "Sable", "Hemlock",
+        "Wren", "Cairn", "Luthien", "Bramwell"
+      ],
+      "titles": [
+        "the Chronicler", "the Unseen", "Who Remembers",
+        "the Weary", "of the Long Road", "Who Watches",
+        "the Fading", "Between Pages", "the Unwritten"
+      ]
+    },
+    "moods": ["calm", "alert", "concerned", "unsettled"],
+    "moodThresholds": {
+      "alert": "hazard_approaching",
+      "concerned": "health_below_30_percent",
+      "unsettled": "zone_3"
+    }
+  },
+
+  "zones": [
+    {
+      "id": "fantasy",
+      "name": "The Old Wood",
+      "theme": "fantasy",
+      "description": "Forests and stone and steel. The world you know.",
+      "encounterCount": 8,
+      "anchorCount": 2,
+      "backgroundSet": "forest",
+      "difficultyRange": [2, 5],
+      "damageRange": [4, 8],
+      "bossId": "forest_guardian"
+    },
+    {
+      "id": "future_fantasy",
+      "name": "The Fractured Reach",
+      "theme": "future_fantasy",
+      "description": "Cracks appear. Technology bleeds through. The world is not what it seemed.",
+      "encounterCount": 10,
+      "anchorCount": 3,
+      "backgroundSet": "fractured",
+      "difficultyRange": [3, 7],
+      "damageRange": [6, 12],
+      "bossId": "fractured_warden"
+    },
+    {
+      "id": "cosmic_horror",
+      "name": "The Unraveling",
+      "theme": "cosmic_horror",
+      "description": "Reality frays. Things without names. The narrator hesitates.",
+      "encounterCount": 8,
+      "anchorCount": 2,
+      "backgroundSet": "void",
+      "difficultyRange": [5, 9],
+      "damageRange": [8, 16],
+      "bossId": "the_unnamed"
+    }
+  ],
+
+  "display": {
+    "aspectRatio": "16:9",
+    "baseWidth": 1280,
+    "baseHeight": 720,
+    "narrativeLineDelay": 300,
+    "cardFlipDuration": 400,
+    "dieRollDuration": 800
+  }
+}

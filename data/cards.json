@@ -1,0 +1,250 @@
+{
+  "_meta": {
+    "version": "0.1",
+    "description": "Card definitions for Chronicles. Starting deck is defined in config.json."
+  },
+
+  "melee_strike": {
+    "name": "Strike",
+    "category": "melee",
+    "sigil": "crossed_blades",
+    "image": "melee_strike",
+    "effect": "roll_bonus",
+    "value": 2,
+    "description": "A swift blow. Adds +2 to your die roll."
+  },
+
+  "melee_guard": {
+    "name": "Guard",
+    "category": "melee",
+    "sigil": "crossed_blades",
+    "image": "melee_guard",
+    "effect": "damage_reduce",
+    "value": 4,
+    "description": "Brace for impact. Reduces damage taken by 4 on failure."
+  },
+
+  "melee_bash": {
+    "name": "Bash",
+    "category": "melee",
+    "sigil": "crossed_blades",
+    "image": "melee_bash",
+    "effect": "difficulty_reduce",
+    "value": 2,
+    "description": "Force through. Lowers the hazard difficulty by 2."
+  },
+
+  "melee_cleave": {
+    "name": "Cleave",
+    "category": "melee",
+    "sigil": "crossed_blades",
+    "image": "melee_cleave",
+    "effect": "roll_bonus",
+    "value": 3,
+    "description": "A heavy swing. Adds +3 to your die roll."
+  },
+
+  "melee_parry": {
+    "name": "Parry",
+    "category": "melee",
+    "sigil": "crossed_blades",
+    "image": "melee_parry",
+    "effect": "damage_reduce",
+    "value": 6,
+    "description": "Turn the blow aside. Reduces damage taken by 6 on failure."
+  },
+
+  "melee_reckless": {
+    "name": "Reckless Swing",
+    "category": "melee",
+    "sigil": "crossed_blades",
+    "image": "melee_reckless",
+    "effect": "roll_bonus",
+    "value": 4,
+    "description": "Everything you've got. Adds +4 but take 3 damage regardless."
+  },
+
+  "hazard_keen_eye": {
+    "name": "Keen Eye",
+    "category": "hazard_assist",
+    "sigil": "eye",
+    "image": "hazard_keen_eye",
+    "effect": "roll_bonus",
+    "value": 2,
+    "description": "You see it clearly now. Adds +2 to your die roll."
+  },
+
+  "hazard_steady_hand": {
+    "name": "Steady Hand",
+    "category": "hazard_assist",
+    "sigil": "eye",
+    "image": "hazard_steady_hand",
+    "effect": "difficulty_reduce",
+    "value": 2,
+    "description": "Calm under pressure. Lowers the hazard difficulty by 2."
+  },
+
+  "hazard_quick_step": {
+    "name": "Quick Step",
+    "category": "hazard_assist",
+    "sigil": "eye",
+    "image": "hazard_quick_step",
+    "effect": "damage_reduce",
+    "value": 5,
+    "description": "Dodge the worst of it. Reduces damage taken by 5 on failure."
+  },
+
+  "hazard_sharp_instinct": {
+    "name": "Sharp Instinct",
+    "category": "hazard_assist",
+    "sigil": "eye",
+    "image": "hazard_sharp_instinct",
+    "effect": "roll_bonus",
+    "value": 3,
+    "description": "You feel it before it comes. Adds +3 to your die roll."
+  },
+
+  "hazard_iron_nerve": {
+    "name": "Iron Nerve",
+    "category": "hazard_assist",
+    "sigil": "eye",
+    "image": "hazard_iron_nerve",
+    "effect": "bypass",
+    "value": 0,
+    "description": "No roll needed. You walk through it like you already knew the way."
+  },
+
+  "hazard_second_look": {
+    "name": "Second Look",
+    "category": "hazard_assist",
+    "sigil": "eye",
+    "image": "hazard_second_look",
+    "effect": "reroll",
+    "value": 0,
+    "description": "Wait. Try again. Lets you reroll the die once."
+  },
+
+  "magic_spark": {
+    "name": "Spark",
+    "category": "magic",
+    "sigil": "starburst",
+    "image": "magic_spark",
+    "effect": "roll_bonus",
+    "value": 2,
+    "description": "A flash of arcane force. Adds +2 to your die roll."
+  },
+
+  "magic_mend": {
+    "name": "Mend",
+    "category": "magic",
+    "sigil": "starburst",
+    "image": "magic_mend",
+    "effect": "heal",
+    "value": 6,
+    "description": "The wound closes. Restores 6 health."
+  },
+
+  "magic_ward": {
+    "name": "Ward",
+    "category": "magic",
+    "sigil": "starburst",
+    "image": "magic_ward",
+    "effect": "damage_reduce",
+    "value": 5,
+    "description": "A shimmer in the air. Reduces damage taken by 5 on failure."
+  },
+
+  "magic_shatter": {
+    "name": "Shatter",
+    "category": "magic",
+    "sigil": "starburst",
+    "image": "magic_shatter",
+    "effect": "difficulty_reduce",
+    "value": 3,
+    "description": "The obstacle cracks apart. Lowers the hazard difficulty by 3."
+  },
+
+  "magic_restore": {
+    "name": "Restore",
+    "category": "magic",
+    "sigil": "starburst",
+    "image": "magic_restore",
+    "effect": "heal",
+    "value": 10,
+    "description": "Deep magic pulls you back from the edge. Restores 10 health."
+  },
+
+  "magic_veil": {
+    "name": "Veil",
+    "category": "magic",
+    "sigil": "starburst",
+    "image": "magic_veil",
+    "effect": "bypass",
+    "value": 0,
+    "description": "You were never here. Bypasses the hazard entirely."
+  },
+
+  "_comment_zone2": "=== ZONE 2 DISCOVERY CARDS — The Fractured Reach ===",
+
+  "melee_overload": {
+    "name": "Overload",
+    "category": "melee",
+    "sigil": "crossed_blades",
+    "image": "melee_overload",
+    "effect": "roll_bonus",
+    "value": 4,
+    "description": "Channel fractured energy through your blade. Adds +4 to your die roll."
+  },
+
+  "hazard_scan": {
+    "name": "Scan",
+    "category": "hazard_assist",
+    "sigil": "eye",
+    "image": "hazard_scan",
+    "effect": "difficulty_reduce",
+    "value": 3,
+    "description": "Residual tech maps the danger. Lowers the hazard difficulty by 3."
+  },
+
+  "magic_surge": {
+    "name": "Surge",
+    "category": "magic",
+    "sigil": "starburst",
+    "image": "magic_surge",
+    "effect": "roll_bonus",
+    "value": 3,
+    "description": "Raw power crackles between worlds. Adds +3 to your die roll."
+  },
+
+  "_comment_zone3": "=== ZONE 3 DISCOVERY CARDS — The Unraveling ===",
+
+  "melee_last_stand": {
+    "name": "Last Stand",
+    "category": "melee",
+    "sigil": "crossed_blades",
+    "image": "melee_last_stand",
+    "effect": "roll_bonus",
+    "value": 5,
+    "description": "Everything you have left. Adds +5 to your die roll."
+  },
+
+  "hazard_glimpse": {
+    "name": "Glimpse",
+    "category": "hazard_assist",
+    "sigil": "eye",
+    "image": "hazard_glimpse",
+    "effect": "bypass",
+    "value": 0,
+    "description": "You see through it — the danger was never real. Bypasses the hazard entirely."
+  },
+
+  "magic_unravel": {
+    "name": "Unravel",
+    "category": "magic",
+    "sigil": "starburst",
+    "image": "magic_unravel",
+    "effect": "difficulty_reduce",
+    "value": 4,
+    "description": "Pull the threads of reality apart. Lowers the hazard difficulty by 4."
+  }
+}
