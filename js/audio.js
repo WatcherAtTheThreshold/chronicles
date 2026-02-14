@@ -13,7 +13,18 @@ const SOUNDS = {
     card_flip:        'assets/audio/cards/card_flip.mp3',
     card_play:        'assets/audio/cards/card_play.mp3',
     game_over_death:  'assets/audio/events/game_over_death.mp3',
-    game_over_victory:'assets/audio/events/game_over_victory.mp3'
+    game_over_victory:'assets/audio/events/game_over_victory.mp3',
+
+    // Tier 2 — Important
+    ui_button_click:  'assets/audio/ui/ui_button_click.mp3',
+    card_draw:        'assets/audio/cards/card_draw.mp3',
+    card_redraw:      'assets/audio/cards/card_redraw.mp3',
+    card_reveal:      'assets/audio/cards/card_reveal.mp3',
+    hazard_start:     'assets/audio/hazard/hazard-start.mp3',
+    discovery_pick:   'assets/audio/cards/discovery_pick.mp3',
+    heal:             'assets/audio/events/heal.mp3',
+    flee:             'assets/audio/events/flee.mp3',
+    zone_transition:  'assets/audio/events/zone_transition.mp3'
 };
 
 const _cache = {};

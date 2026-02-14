@@ -15,6 +15,8 @@ import { playSound, playLoop, stopLoop, toggleMute, isMuted } from './audio.js';
 let _prevHealth = null;
 let _dieRolling = false;
 let _lastNarrativeKey = null;
+let _prevZone = 0;
+let _prevHazardActive = false;
 
 function displayConfig() {
     return getGameData().config?.display || {};
@@ -99,6 +101,14 @@ export function renderAll() {
         return;
     }
 
+    // Zone transition sound
+    if (G.currentZone !== _prevZone) {
+        if (_prevZone !== 0 || G.currentZone !== 0) {
+            playSound('zone_transition');
+        }
+        _prevZone = G.currentZone;
+    }
+
     updateNarratorMood();
     renderNarrator();
     renderStats();
@@ -133,6 +143,11 @@ function renderStats() {
         DOM.healthBar.classList.add('critical');
     } else if (healthPct <= 50) {
         DOM.healthBar.classList.add('low');
+    }
+
+    // Heal feedback — sound when health increases
+    if (_prevHealth !== null && G.health > _prevHealth) {
+        playSound('heal');
     }
 
     // Damage feedback — flash health bar + shake board + sound
@@ -325,6 +340,11 @@ function renderHazard() {
     DOM.hazardFrame.classList.remove('result-success', 'result-failure');
 
     if (G.activeHazard) {
+        // Hazard start sound — play once when hazard first activates
+        if (!_prevHazardActive) {
+            playSound('hazard_start');
+        }
+        _prevHazardActive = true;
         DOM.hazardFrame.classList.add('active');
 
         // Show encounter image (same source as narrative background)
@@ -355,6 +375,7 @@ function renderHazard() {
             }, { once: true });
         }
     } else {
+        _prevHazardActive = false;
         DOM.hazardFrame.classList.remove('active');
         DOM.hazardImage.style.backgroundImage = 'none';
         DOM.hazardInfo.innerHTML = '<div class="hazard-placeholder">&mdash;</div>';
@@ -460,6 +481,7 @@ function renderDiscoveryOffers() {
                 <div class="card-sigil ${card.category}"></div>
             </div>`;
         cardEl.addEventListener('click', () => {
+            playSound('discovery_pick');
             pickDiscoveryCard(card.id);
             if (G.currentNode.next) {
                 goToNode(G.currentNode.next);
@@ -576,14 +598,17 @@ export function bindEventHandlers(updateCallback) {
 
     // Context buttons — skip updateCallback when die animation is running
     DOM.btnContext1.addEventListener('click', () => {
+        playSound('ui_button_click');
         handleContextButton(0);
         if (!_dieRolling) updateCallback();
     });
     DOM.btnContext2.addEventListener('click', () => {
+        playSound('ui_button_click');
         handleContextButton(1);
         if (!_dieRolling) updateCallback();
     });
     DOM.btnContext3.addEventListener('click', () => {
+        playSound('ui_button_click');
         handleContextButton(2);
         if (!_dieRolling) updateCallback();
     });
@@ -592,17 +617,20 @@ export function bindEventHandlers(updateCallback) {
     DOM.drawCard.addEventListener('click', () => {
         if (G.over) return;
         if (!G.drawRevealed && G.drawPile.length > 0) {
+            playSound('card_reveal');
             revealDrawPile();
             updateCallback();
         }
     });
     DOM.btnTakeCard.addEventListener('click', () => {
         if (G.over) return;
+        playSound('card_draw');
         takeCard();
         updateCallback();
     });
     DOM.btnRedraw.addEventListener('click', () => {
         if (G.over) return;
+        playSound('card_redraw');
         redraw();
         updateCallback();
     });
@@ -704,6 +732,7 @@ function handleHazardButton(index) {
             break;
 
         case 'flee':
+            playSound('flee');
             applyFleeCost();
             if (button.next) {
                 goToNode(button.next);
