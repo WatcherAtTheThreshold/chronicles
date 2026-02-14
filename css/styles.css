@@ -464,10 +464,17 @@ button {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.hand-card:hover .card-face {
+/* Hover lift — only for cards NOT using the 3D flip structure */
+.hand-card:hover > .card-face {
     transform: translateY(-4px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
 }
+
+/* Hover lift for face-down cards using the 3D flip wrapper */
+.hand-card:hover > .card-inner {
+    transform: translateY(-4px);
+}
+
 
 .hand-card.selected .card-face {
     transform: translateY(-8px);

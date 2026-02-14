@@ -14,6 +14,7 @@ import { playSound, playLoop, stopLoop, toggleMute, isMuted } from './audio.js';
 // --------------------------------
 let _prevHealth = null;
 let _dieRolling = false;
+let _lastNarrativeKey = null;
 
 function displayConfig() {
     return getGameData().config?.display || {};
@@ -199,6 +200,13 @@ function renderNarrative() {
     const node = G.currentNode;
 
     const lineDelay = displayConfig().narrativeLineDelay || 0;
+
+    // Build a cache key to skip re-render when content hasn't changed
+    const narrativeKey = G.hazardResolved
+        ? `hazard:${G.hazardResolved.roll}:${G.hazardResolved.success}`
+        : `node:${node.id}`;
+    if (narrativeKey === _lastNarrativeKey) return;
+    _lastNarrativeKey = narrativeKey;
 
     // If hazard is resolved, show outcome text instead of node lines
     if (G.hazardResolved) {
@@ -502,6 +510,7 @@ function renderGameOver() {
         lines.push('Darkness takes hold.');
     }
 
+    _lastNarrativeKey = 'gameover:' + (isVictory ? 'victory' : 'death');
     playSound(isVictory ? 'game_over_victory' : 'game_over_death');
     displayLines(lines, DOM.narrativeText);
 
