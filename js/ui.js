@@ -469,6 +469,9 @@ function renderDiscoveryOffers() {
     // Show discovery cards in the narrative panel area
     if (G.discoveryOffers.length === 0) return;
 
+    // Skip if already rendered (narrative cache key prevents clearing)
+    if (DOM.narrativeText.querySelector('.discovery-offers')) return;
+
     const offersDiv = document.createElement('div');
     offersDiv.className = 'discovery-offers';
     offersDiv.style.marginTop = '20px';

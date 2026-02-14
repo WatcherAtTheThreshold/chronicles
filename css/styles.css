@@ -873,8 +873,8 @@ button {
 }
 
 .discovery-card {
-    width: 90px;
-    height: 130px;
+    width: var(--card-width);
+    height: var(--card-height);
     cursor: pointer;
     transition: transform 0.3s ease;
 }
