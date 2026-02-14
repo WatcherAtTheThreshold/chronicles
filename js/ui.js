@@ -7,6 +7,7 @@ import { G, goToNode, flipCard, playCard, hasEmptyHandSlot, takeCard,
          redraw, revealDrawPile, pickDiscoveryCard, updateNarratorMood,
          resolveHazard, applyFleeCost, restartGame, getGameData } from './state.js';
 import { displayLines, setBackground } from './narrator.js';
+import { playSound, playLoop, stopLoop, toggleMute, isMuted } from './audio.js';
 
 // --------------------------------
 // Animation State
@@ -75,7 +76,10 @@ export function cacheDOMElements() {
         dieFace: document.getElementById('die-face'),
 
         // Board (for screen shake)
-        board: document.querySelector('.board')
+        board: document.querySelector('.board'),
+
+        // Audio
+        btnMute: document.getElementById('btn-mute')
     };
 }
 
@@ -130,7 +134,7 @@ function renderStats() {
         DOM.healthBar.classList.add('low');
     }
 
-    // Damage feedback — flash health bar + shake board
+    // Damage feedback — flash health bar + shake board + sound
     if (_prevHealth !== null && G.health < _prevHealth) {
         const bar = DOM.healthBar.parentElement;
         bar.classList.remove('damage-flash');
@@ -140,6 +144,7 @@ function renderStats() {
         DOM.board.classList.add('screen-shake');
         bar.addEventListener('animationend', () => bar.classList.remove('damage-flash'), { once: true });
         DOM.board.addEventListener('animationend', () => DOM.board.classList.remove('screen-shake'), { once: true });
+        playSound('damage_hit');
     }
     _prevHealth = G.health;
 
@@ -330,12 +335,13 @@ function renderHazard() {
 
         DOM.hazardLabel.textContent = 'You face:';
 
-        // Hazard result flash
+        // Hazard result flash + sound
         if (G.hazardResolved) {
             void DOM.hazardFrame.offsetWidth;
             DOM.hazardFrame.classList.add(
                 G.hazardResolved.success ? 'result-success' : 'result-failure'
             );
+            playSound(G.hazardResolved.success ? 'hazard_success' : 'hazard_failure');
             DOM.hazardFrame.addEventListener('animationend', () => {
                 DOM.hazardFrame.classList.remove('result-success', 'result-failure');
             }, { once: true });
@@ -496,6 +502,7 @@ function renderGameOver() {
         lines.push('Darkness takes hold.');
     }
 
+    playSound(isVictory ? 'game_over_victory' : 'game_over_death');
     displayLines(lines, DOM.narrativeText);
 
     // Show run stats in hazard viewport
@@ -538,6 +545,7 @@ function handleCardClick(slotIndex) {
         if (inner && !inner.classList.contains('flipped')) {
             inner.style.transitionDuration = duration + 'ms';
             inner.classList.add('flipped');
+            playSound('card_flip');
             setTimeout(() => {
                 flipCard(slotIndex);
                 renderAll();
@@ -548,6 +556,7 @@ function handleCardClick(slotIndex) {
 
     // Face-up card during hazard — play it immediately
     if (G.activeHazard && !G.hazardResolved && !G.cardPlayed) {
+        playSound('card_play');
         playCard(slotIndex);
         renderAll();
     }
@@ -609,6 +618,13 @@ export function bindEventHandlers(updateCallback) {
     // Seed click — copy to clipboard
     DOM.seedValue.addEventListener('click', () => {
         navigator.clipboard.writeText(G.seed.toString());
+    });
+
+    // Mute toggle
+    if (isMuted()) DOM.btnMute.classList.add('muted');
+    DOM.btnMute.addEventListener('click', () => {
+        const muted = toggleMute();
+        DOM.btnMute.classList.toggle('muted', muted);
     });
 }
 
@@ -697,6 +713,7 @@ function handleDieRoll() {
 
     _dieRolling = true;
     DOM.die.classList.add('rolling');
+    playLoop('die_roll');
 
     // Cycle random display numbers during animation
     const cycleInterval = setInterval(() => {
@@ -706,13 +723,15 @@ function handleDieRoll() {
     setTimeout(() => {
         clearInterval(cycleInterval);
         DOM.die.classList.remove('rolling');
+        stopLoop('die_roll');
 
         // Actual seeded roll + resolve
         const roll = randomInt(1, 6);
         resolveHazard(roll);
 
-        // Show result with landing animation
+        // Show result with landing animation + sound
         DOM.dieFace.textContent = roll;
+        playSound('die_land');
         DOM.die.classList.add('roll-land');
         DOM.die.addEventListener('animationend', () => {
             DOM.die.classList.remove('roll-land');

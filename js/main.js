@@ -6,6 +6,7 @@
 import { initRNG, randomInt, pickRandom } from './rng.js';
 import { G, setGameData, initGame, goToNode } from './state.js';
 import { cacheDOMElements, renderAll, bindEventHandlers, setRNG } from './ui.js';
+import { initAudio } from './audio.js';
 
 // --------------------------------
 // Data Loading
@@ -104,8 +105,9 @@ async function init() {
         // 3. Wire RNG into UI module
         setRNG({ randomInt, pickRandom });
 
-        // 4. Cache DOM
+        // 4. Cache DOM + init audio
         cacheDOMElements();
+        initAudio();
 
         // 5. Init game state
         initGame();
